@@ -1,0 +1,101 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="page-width">
+
+    <div class="site-footer__grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <div class="footer-brand__logo">
+          {%- if section.settings.footer_logo != blank -%}
+            <img src="{{ section.settings.footer_logo | image_url: width: 200 }}" alt="{{ shop.name }}" style="height:4rem;width:auto;filter:brightness(0) invert(1);">
+          {%- else -%}
+            {{ shop.name }}
+          {%- endif -%}
+        </div>
+        {%- if section.settings.footer_description != blank -%}
+          <p class="footer-brand__desc">{{ section.settings.footer_description }}</p>
+        {%- endif -%}
+      </div>
+
+      <!-- Nav columns from blocks -->
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_list' -%}
+          <div class="footer-col" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <p class="footer-col__title">{{ block.settings.heading }}</p>
+            {%- endif -%}
+            <ul class="footer-nav" role="list">
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      {%- if section.settings.payment_icons -%}
+        <div class="footer-payment" aria-label="Payment methods">
+          {%- for type in shop.enabled_payment_types -%}
+            {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer logo"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_description",
+      "label": "Brand description",
+      "default": "Premium organic formulas for happy, healthy babies."
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Navigation column",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Quick Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Footer" }
+  ]
+}
+{% endschema %}

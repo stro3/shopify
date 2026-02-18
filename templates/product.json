@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_vendor": true,
+        "show_quantity": true
+      }
+    }
+  },
+  "order": ["main"]
+}

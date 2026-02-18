@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links-1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "links-2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": ["links-1", "links-2"],
+      "settings": {
+        "footer_description": "Premium organic formulas for happy, healthy babies.",
+        "payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

@@ -1,0 +1,25 @@
+# Shopify Theme — gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.vscode/
+.idea/
+
+# Shopify CLI
+.shopify/
+shopify.theme.toml
+
+# Node (if used locally)
+node_modules/
+package-lock.json
+yarn.lock
+.env
+.env.local
+
+# Build output
+dist/
+*.zip

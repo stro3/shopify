@@ -1,0 +1,40 @@
+{% if section.settings.show_announcement %}
+<div class="announcement-bar" role="complementary" aria-label="Announcement">
+  <p class="announcement-bar__message">
+    {% if section.settings.announcement_link != blank %}
+      <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_text }}</a>
+    {% else %}
+      {{ section.settings.announcement_text }}
+    {% endif %}
+  </p>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $50 🎉"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link (optional)"
+    }
+  ],
+  "presets": [
+    { "name": "Announcement bar" }
+  ]
+}
+{% endschema %}

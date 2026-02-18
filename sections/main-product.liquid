@@ -1,0 +1,193 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'ProductForm-' | append: section.id
+-%}
+
+<section class="product-pdp" id="section-{{ section.id }}">
+  <div class="page-width">
+    <div class="product-pdp__grid">
+
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="product-gallery__main">
+          {%- if product.featured_image != blank -%}
+            <img
+              id="ProductMainImage-{{ section.id }}"
+              src="{{ current_variant.featured_image | default: product.featured_image | image_url: width: 800 }}"
+              srcset="
+                {{ current_variant.featured_image | default: product.featured_image | image_url: width: 400 }} 400w,
+                {{ current_variant.featured_image | default: product.featured_image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="{{ product.featured_image.alt | escape | default: product.title }}"
+              loading="eager"
+              fetchpriority="high"
+              width="800" height="800"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-gallery__thumbs">
+            {%- for image in product.images limit: 8 -%}
+              <button
+                class="product-gallery__thumb {% if forloop.first %}active{% endif %}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 150 }}"
+                  srcset="{{ image | image_url: width: 75 }} 75w, {{ image | image_url: width: 150 }} 150w"
+                  alt="{{ image.alt | escape }}"
+                  loading="lazy"
+                  width="150" height="150"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+
+        {%- if product.vendor != blank -%}
+          <p class="product-info__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+
+        <h1 class="product-info__title">{{ product.title }}</h1>
+
+        <!-- Price -->
+        <div class="product-info__price">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="price--compare">{{ current_variant.compare_at_price | money }}</span>
+            <span class="price--sale">{{ current_variant.price | money }}</span>
+          {%- else -%}
+            <span class="price">{{ current_variant.price | money }}</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Product form -->
+        {%- form 'product', product, id: product_form_id, data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          <!-- Variants -->
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="product-variants" data-option-position="{{ option.position }}">
+                <p class="product-variants__label">
+                  {{ option.name }}:
+                  <strong>{{ current_variant.options[forloop.index0] }}</strong>
+                </p>
+                <div class="variant-pills" role="group" aria-label="{{ option.name }}">
+                  {%- for value in option.values -%}
+                    {%- liquid
+                      assign variant_found = false
+                      for variant in product.variants
+                        if variant.option1 == value or variant.option2 == value or variant.option3 == value
+                          if variant_found == false
+                            assign variant_found = true
+                            assign variant_available = variant.available
+                          endif
+                        endif
+                      endfor
+                    -%}
+                    <button
+                      type="button"
+                      class="variant-pill{% if value == current_variant.options[forloop.index0] %} active{% endif %}{% unless variant_available %} sold-out{% endunless %}"
+                      {% unless variant_available %}aria-disabled="true"{% endunless %}
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <!-- Quantity -->
+          <div class="product-qty">
+            <div class="qty-selector" role="group" aria-label="Quantity">
+              <button type="button" data-qty-decrease aria-label="Decrease quantity">−</button>
+              <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+              <button type="button" data-qty-increase aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <!-- Add to cart -->
+          <div class="product-atc">
+            <button
+              type="submit"
+              class="btn btn--primary btn--full"
+              data-atc-btn
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}
+                Add to Cart
+              {%- else -%}
+                Sold Out
+              {%- endif -%}
+            </button>
+          </div>
+
+        {%- endform -%}
+
+        <!-- Variants JSON for JS -->
+        <script id="product-variants-json" type="application/json">
+          {{ product.variants | json }}
+        </script>
+
+        <!-- Description -->
+        {%- if product.description != blank -%}
+          <div class="product-info__description" style="margin-top:3.2rem;padding-top:3.2rem;border-top:1px solid rgba(var(--color-base-text),.08);">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        <!-- Metafields -->
+        {%- if product.metafields.custom.ingredients != blank -%}
+          <div style="margin-top:var(--spacing-md);padding-top:var(--spacing-md);border-top:1px solid rgba(var(--color-base-text),.08);">
+            <h3 style="font-size:1.6rem;margin-bottom:.8rem;">Ingredients</h3>
+            <p style="font-size:1.4rem;color:rgba(var(--color-base-text),.7);">
+              {{ product.metafields.custom.ingredients.value }}
+            </p>
+          </div>
+        {%- endif -%}
+
+        {%- if product.metafields.custom.usage_instructions != blank -%}
+          <div style="margin-top:var(--spacing-md);padding-top:var(--spacing-md);border-top:1px solid rgba(var(--color-base-text),.08);">
+            <h3 style="font-size:1.6rem;margin-bottom:.8rem;">How to Use</h3>
+            <p style="font-size:1.4rem;color:rgba(var(--color-base-text),.7);">
+              {{ product.metafields.custom.usage_instructions.value }}
+            </p>
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show quantity selector",
+      "default": true
+    }
+  ],
+  "presets": [
+    { "name": "Product information" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{
+  "current": {
+    "colors_text": "#1a1a1a",
+    "colors_background_1": "#ffffff",
+    "colors_background_2": "#f3f3f3",
+    "colors_accent_1": "#121212",
+    "colors_accent_2": "#7952b3",
+    "colors_solid_button_labels": "#ffffff",
+    "colors_outline_button_labels": "#121212",
+    "type_body_font": "helvetica_neue_n4",
+    "type_header_font": "helvetica_neue_n7",
+    "page_width": 1320,
+    "corner_radius": 4,
+    "animations_hover_elements": "none"
+  }
+}

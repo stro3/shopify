@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ManuKind Demo — Shopify Theme Preview</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 62.5%; scroll-behavior: smooth; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.65;
+  color: #1a1a1a;
+  background: #fff;
+  overflow-x: hidden;
+}
+:root {
+  --accent: #2d6a4f;
+  --accent2: #52b788;
+  --text: #1a1a1a;
+  --bg1: #fff;
+  --bg2: #f8f8f6;
+  --radius: 6px;
+  --transition: all 0.25s ease;
+  --page: 132rem;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+a { color: var(--text); text-decoration: none; transition: var(--transition); }
+img { max-width: 100%; height: auto; display: block; }
+h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; }
+h1 { font-size: clamp(3.2rem,5vw,5.6rem); }
+h2 { font-size: clamp(2.4rem,4vw,4rem); }
+h3 { font-size: 2rem; }
+.page-width { max-width: 1320px; margin: 0 auto; padding: 0 2.4rem; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .8rem;
+  padding: 1.4rem 3.2rem; border-radius: var(--radius);
+  font-size: 1.4rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; border: 2px solid transparent; transition: var(--transition);
+  white-space: nowrap; font-family: inherit;
+}
+.btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--primary:hover { background: transparent; color: var(--accent); }
+.btn--secondary { background: transparent; color: var(--text); border-color: var(--text); }
+.btn--secondary:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--full { width: 100%; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ── Announcement Bar ── */
+.announcement-bar {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg1);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+.site-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 7.2rem; gap: 2.4rem;
+}
+.site-header__logo a { font-size: 2.4rem; font-weight: 900; letter-spacing: -.03em; color: var(--text); }
+.site-header__logo span { color: var(--accent); }
+.site-nav { display: flex; align-items: center; gap: 2.8rem; list-style: none; }
+.site-nav a { font-size: 1.5rem; font-weight: 500; color: var(--text); }
+.site-nav a:hover { color: var(--accent); }
+.site-header__icons { display: flex; align-items: center; gap: 1.2rem; }
+.icon-btn {
+  position: relative; background: none; border: none; cursor: pointer;
+  padding: .8rem; display: flex; align-items: center; color: var(--text);
+  border-radius: 50%; transition: var(--transition);
+}
+.icon-btn:hover { background: rgba(0,0,0,.05); }
+.cart-badge {
+  position: absolute; top: 0; right: 0;
+  background: var(--accent2); color: #fff;
+  font-size: 1rem; font-weight: 700;
+  min-width: 1.8rem; height: 1.8rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Hero Banner ── */
+.hero-banner {
+  position: relative; overflow: hidden;
+  min-height: 65vh; display: flex; align-items: center;
+  background: linear-gradient(135deg, #081c15 0%, #1b4332 50%, #2d6a4f 100%);
+}
+.hero-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: 0;
+}
+.hero-banner__content { position: relative; z-index: 2; width: 100%; padding: 8rem 0; }
+.hero-banner__eyebrow {
+  font-size: 1.3rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent2); margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.hero-banner__eyebrow::before { content: ''; width: 3rem; height: 2px; background: var(--accent2); }
+.hero-banner__heading { color: #fff; margin-bottom: 1.6rem; font-size: clamp(3.6rem,6vw,6.4rem); }
+.hero-banner__heading span { color: var(--accent2); }
+.hero-banner__subtext { color: rgba(255,255,255,.75); font-size: 1.8rem; line-height: 1.7; margin-bottom: 4rem; max-width: 52rem; }
+.hero-banner__buttons { display: flex; flex-wrap: wrap; gap: 1.6rem; }
+.hero-banner__stats {
+  position: absolute; bottom: 4rem; right: 0;
+  display: flex; gap: 3.2rem;
+  z-index: 2;
+}
+.hero-stat { text-align: center; }
+.hero-stat__num { font-size: 3.2rem; font-weight: 900; color: #fff; line-height: 1; }
+.hero-stat__label { font-size: 1.2rem; color: rgba(255,255,255,.6); margin-top: .4rem; }
+
+/* ── Section headers ── */
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; flex-wrap: wrap; gap: 1.6rem; }
+.section-eyebrow { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); margin-bottom: .8rem; }
+.section-title { margin: 0; }
+
+/* ── Product Grid ── */
+.products-section { padding: 8rem 0; background: var(--bg1); }
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; }
+.product-card {
+  background: var(--bg1); border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,.07); overflow: hidden;
+  transition: var(--transition); cursor: pointer;
+}
+.product-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+.product-card__media {
+  position: relative; aspect-ratio: 1;
+  overflow: hidden;
+}
+.product-card__media-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem;
+  transition: transform .4s ease;
+}
+.product-card:hover .product-card__media-inner { transform: scale(1.06); }
+.product-card__badge {
+  position: absolute; top: 1.2rem; left: 1.2rem;
+  background: var(--accent); color: #fff;
+  font-size: 1.1rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: .3rem .9rem; border-radius: 2px;
+}
+.product-card__info { padding: 1.6rem; }
+.product-card__vendor { font-size: 1.2rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(0,0,0,.4); margin-bottom: .4rem; }
+.product-card__title { font-size: 1.6rem; font-weight: 600; margin-bottom: .8rem; line-height: 1.3; }
+.product-card__price { display: flex; align-items: center; gap: .8rem; }
+.price { font-size: 1.6rem; font-weight: 700; }
+.price--compare { font-size: 1.4rem; font-weight: 400; color: rgba(0,0,0,.35); text-decoration: line-through; }
+.price--sale { color: #b5181f; }
+
+/* Product card colors */
+.pc1 { background: linear-gradient(135deg,#d8f3dc,#b7e4c7); }
+.pc2 { background: linear-gradient(135deg,#fde8d8,#f9c4a0); }
+.pc3 { background: linear-gradient(135deg,#e0d4f7,#c5ade8); }
+.pc4 { background: linear-gradient(135deg,#d4e8f7,#a8d0ee); }
+
+/* ── BYOB Section ── */
+.byob-section { background: var(--bg2); padding: 8rem 0 12rem; }
+.byob-header { text-align: center; margin-bottom: 4.8rem; }
+.byob-subtitle { font-size: 1.7rem; color: rgba(0,0,0,.55); max-width: 56rem; margin: 1.2rem auto 0; line-height: 1.7; }
+.byob-steps {
+  display: flex; align-items: center; justify-content: center;
+  gap: .8rem; margin-bottom: 4.8rem; flex-wrap: wrap;
+}
+.byob-step {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .9rem 2rem; border-radius: 3rem;
+  background: rgba(0,0,0,.06); color: rgba(0,0,0,.4);
+  font-size: 1.4rem; font-weight: 600;
+}
+.byob-step.active { background: var(--accent); color: #fff; }
+.byob-step__num {
+  width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 800;
+}
+.byob-step-divider { color: rgba(0,0,0,.2); font-size: 1.8rem; }
+.byob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2.4rem; }
+.byob-item {
+  background: var(--bg1); border-radius: var(--radius);
+  border: 2px solid transparent; overflow: hidden;
+  transition: var(--transition); cursor: pointer; position: relative;
+  user-select: none;
+}
+.byob-item:hover { border-color: rgba(45,106,79,.3); box-shadow: var(--shadow); }
+.byob-item.selected { border-color: var(--accent); }
+.byob-item__check {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(.5); transition: var(--transition); z-index: 2;
+  font-size: 1.4rem; font-weight: 900;
+}
+.byob-item.selected .byob-item__check { opacity: 1; transform: scale(1); }
+.byob-item__qty {
+  position: absolute; bottom: 1.2rem; right: 1.2rem;
+  display: flex; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(0,0,0,.12); border-radius: 2rem;
+  padding: .3rem .7rem;
+  opacity: 0; transition: var(--transition); z-index: 3;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+.byob-item.selected .byob-item__qty { opacity: 1; }
+.byob-item__qty button {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.8rem; color: var(--text); padding: 0 .3rem;
+  line-height: 1; transition: var(--transition);
+}
+.byob-item__qty button:hover { color: var(--accent); }
+.byob-item__qty span { font-size: 1.4rem; font-weight: 700; min-width: 1.6rem; text-align: center; }
+.byob-item__media {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem; pointer-events: none;
+  overflow: hidden; transition: transform .4s;
+}
+.byob-item:hover .byob-item__media { transform: scale(1.03); }
+.byob-item__info { padding: 1.4rem; }
+.byob-item__title { font-size: 1.5rem; font-weight: 600; margin-bottom: .4rem; line-height: 1.3; }
+.byob-item__price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.byob-item__sub { font-size: 1.2rem; color: rgba(0,0,0,.45); margin-top: .3rem; }
+
+.byob-footer {
+  position: sticky; bottom: 0;
+  background: var(--bg1);
+  border-top: 1px solid rgba(0,0,0,.08);
+  padding: 1.8rem 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+  z-index: 20;
+}
+.byob-footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.byob-summary span { font-size: 1.5rem; }
+.byob-count { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+.byob-label { color: rgba(0,0,0,.5); }
+.byob-progress { flex: 1; max-width: 34rem; }
+.byob-progress__label { font-size: 1.2rem; color: rgba(0,0,0,.45); margin-bottom: .5rem; display:flex; justify-content: space-between; }
+.byob-progress__track { height: .8rem; background: rgba(0,0,0,.1); border-radius: 1rem; overflow: hidden; }
+.byob-progress__fill { height: 100%; background: var(--accent); border-radius: 1rem; transition: width .4s ease; }
+.byob-error-msg {
+  background: #fff3f3; border-left: 4px solid #b5181f;
+  color: #b5181f; padding: 1.2rem 1.6rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 1.4rem; display: none; margin-top: 1.2rem;
+}
+.byob-error-msg.show { display: block; }
+
+/* ── PDP ── */
+.pdp-section { padding: 8rem 0; background: var(--bg1); }
+.pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
+.pdp-gallery__main {
+  aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
+  background: linear-gradient(135deg,#d8f3dc,#b7e4c7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12rem; margin-bottom: 1.2rem;
+}
+.pdp-gallery__thumbs { display: flex; gap: 1rem; }
+.pdp-thumb {
+  width: 8rem; height: 8rem; border-radius: calc(var(--radius)/2);
+  overflow: hidden; border: 2px solid transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.2rem; transition: var(--transition);
+}
+.pdp-thumb:hover, .pdp-thumb.active { border-color: var(--accent); }
+.pdp-thumb:nth-child(1) { background: linear-gradient(135deg,#d8f3dc,#b7e4c7); }
+.pdp-thumb:nth-child(2) { background: linear-gradient(135deg,#fde8d8,#f9c4a0); }
+.pdp-thumb:nth-child(3) { background: linear-gradient(135deg,#e0d4f7,#c5ade8); }
+.pdp-vendor { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(0,0,0,.4); margin-bottom: .8rem; }
+.pdp-title { font-size: clamp(2.8rem,3vw,4rem); margin-bottom: 1.6rem; }
+.pdp-price { font-size: 2.8rem; font-weight: 800; color: var(--accent); margin-bottom: 3.2rem; }
+.pdp-price__compare { font-size: 1.8rem; font-weight: 400; color: rgba(0,0,0,.35); text-decoration: line-through; margin-right: .8rem; }
+.pdp-label { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem; }
+.variant-pills { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2.4rem; }
+.vpill {
+  padding: .9rem 2rem; border: 1.5px solid rgba(0,0,0,.18);
+  border-radius: var(--radius); font-size: 1.4rem; font-weight: 500;
+  cursor: pointer; transition: var(--transition); background: none; font-family: inherit;
+}
+.vpill:hover { border-color: var(--accent); }
+.vpill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.vpill.soldout { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+.qty-row { display: flex; align-items: center; gap: 1.6rem; margin-bottom: 2.4rem; }
+.qty-box { display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,.18); border-radius: var(--radius); overflow: hidden; }
+.qty-box button { width: 4.4rem; height: 5.2rem; background: none; border: none; cursor: pointer; font-size: 2rem; transition: var(--transition); }
+.qty-box button:hover { background: rgba(0,0,0,.05); }
+.qty-box input { width: 5.6rem; height: 5.2rem; border: none; border-left: 1.5px solid rgba(0,0,0,.1); border-right: 1.5px solid rgba(0,0,0,.1); text-align: center; font-size: 1.6rem; font-weight: 700; font-family: inherit; }
+.pdp-atc-group { display: flex; flex-direction: column; gap: .8rem; margin-bottom: 3.2rem; }
+.pdp-divider { border: none; border-top: 1px solid rgba(0,0,0,.08); margin: 2.4rem 0; }
+.pdp-desc { font-size: 1.5rem; color: rgba(0,0,0,.65); line-height: 1.8; }
+.pdp-meta { margin-top: 2rem; }
+.pdp-meta__item { display: flex; gap: 1.2rem; padding: 1.6rem 0; border-bottom: 1px solid rgba(0,0,0,.06); }
+.pdp-meta__icon { font-size: 2rem; flex-shrink: 0; }
+.pdp-meta__text strong { font-size: 1.4rem; display: block; }
+.pdp-meta__text span { font-size: 1.3rem; color: rgba(0,0,0,.5); }
+
+/* ── Cart Drawer ── */
+.cart-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0);
+  visibility: hidden; pointer-events: none;
+  transition: background .3s;
+}
+.cart-overlay.open { background: rgba(0,0,0,.45); visibility: visible; pointer-events: all; }
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(42rem, 100vw);
+  background: var(--bg1); z-index: 201;
+  display: flex; flex-direction: column;
+  transform: translateX(105%); transition: transform .35s cubic-bezier(.4,0,.2,1);
+  box-shadow: -4px 0 40px rgba(0,0,0,.12);
+}
+.cart-drawer.open { transform: translateX(0); }
+.cart-drawer__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2rem 2.4rem; border-bottom: 1px solid rgba(0,0,0,.07); flex-shrink: 0;
+}
+.cart-drawer__head h3 { font-size: 2rem; margin: 0; }
+.cart-close { background: none; border: none; cursor: pointer; padding: .6rem; border-radius: 50%; transition: var(--transition); font-size: 2rem; line-height: 1; display: flex; }
+.cart-close:hover { background: rgba(0,0,0,.06); }
+.cart-body { flex: 1; overflow-y: auto; padding: 2rem 2.4rem; }
+.cart-item {
+  display: grid; grid-template-columns: 8rem 1fr;
+  gap: 1.4rem; padding: 1.6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.cart-item:last-child { border-bottom: none; }
+.ci-img {
+  width: 8rem; height: 8rem; border-radius: calc(var(--radius)/2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.2rem;
+}
+.ci-info { display: flex; flex-direction: column; gap: .4rem; }
+.ci-title { font-size: 1.4rem; font-weight: 600; line-height: 1.3; }
+.ci-variant { font-size: 1.3rem; color: rgba(0,0,0,.45); }
+.ci-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.ci-qty { display: flex; align-items: center; gap: .6rem; }
+.ci-qty button {
+  width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,.15); background: none;
+  cursor: pointer; font-size: 1.6rem; display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.ci-qty button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ci-qty span { font-size: 1.4rem; font-weight: 700; min-width: 2rem; text-align: center; }
+.ci-price { font-size: 1.5rem; font-weight: 700; }
+.ci-remove { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: rgba(0,0,0,.35); text-decoration: underline; transition: var(--transition); }
+.ci-remove:hover { color: #b5181f; }
+.cart-foot { padding: 2rem 2.4rem; border-top: 1px solid rgba(0,0,0,.07); flex-shrink: 0; background: var(--bg1); }
+.cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.6rem; }
+.cart-subtotal span { font-size: 1.5rem; font-weight: 600; }
+.cart-subtotal strong { font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+.cart-note { font-size: 1.3rem; color: rgba(0,0,0,.45); text-align: center; margin-bottom: 1.2rem; }
+.cart-cta-group { display: flex; flex-direction: column; gap: .8rem; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 2.4rem; left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--accent); color: #fff;
+  padding: 1.2rem 2.8rem; border-radius: var(--radius);
+  font-size: 1.5rem; font-weight: 600;
+  box-shadow: 0 4px 24px rgba(0,0,0,.18);
+  z-index: 500; transition: transform .35s cubic-bezier(.4,0,.2,1);
+  white-space: nowrap; pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { background: #b5181f; }
+
+/* ── Footer ── */
+.site-footer { background: #081c15; color: rgba(255,255,255,.8); padding: 8rem 0 3.2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 6rem; margin-bottom: 6rem; }
+.footer-logo { font-size: 2.8rem; font-weight: 900; color: #fff; margin-bottom: 1.6rem; }
+.footer-logo span { color: var(--accent2); }
+.footer-desc { font-size: 1.5rem; line-height: 1.7; color: rgba(255,255,255,.55); }
+.footer-col h4 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .12em; color: #fff; margin-bottom: 1.6rem; font-weight: 700; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
+.footer-links a { font-size: 1.5rem; color: rgba(255,255,255,.55); transition: var(--transition); }
+.footer-links a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 2.4rem; display: flex; justify-content: space-between; align-items: center; font-size: 1.3rem; color: rgba(255,255,255,.4); }
+.payment-icons { display: flex; gap: .8rem; font-size: 2rem; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) { .product-grid { grid-template-columns: repeat(2,1fr); } .pdp-grid { grid-template-columns: 1fr; gap: 4rem; } .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) { .site-nav { display: none; } .byob-grid { grid-template-columns: repeat(2,1fr); } .byob-footer__inner { flex-direction: column; } .hero-banner__stats { display: none; } h1 { font-size: 3.2rem; } }
+@media (max-width: 480px) { .product-grid { grid-template-columns: repeat(2,1fr); gap: 1.2rem; } .byob-grid { grid-template-columns: repeat(2,1fr); } .footer-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     ANNOUNCEMENT BAR
+════════════════════════════════════════════ -->
+<div class="announcement-bar">
+  🌿 Free shipping on all orders over $50 — <strong>Shop Now →</strong>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="page-width">
+    <div class="site-header__inner">
+      <div class="site-header__logo">
+        <a href="#">Manu<span style="color:var(--accent)">Kind</span></a>
+      </div>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Bundles</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="site-header__icons">
+        <button class="icon-btn" aria-label="Account">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="icon-btn" id="cartTrigger" aria-label="Open cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cartCount">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HERO BANNER
+════════════════════════════════════════════ -->
+<section class="hero-banner">
+  <div class="hero-banner__content">
+    <div class="page-width">
+      <div style="max-width:60rem;">
+        <p class="hero-banner__eyebrow">New Collection 2025</p>
+        <h1 class="hero-banner__heading">Feed Your Family <span>Better</span></h1>
+        <p class="hero-banner__subtext">Premium organic baby formulas crafted with the finest ingredients. Trusted by 50,000+ families worldwide.</p>
+        <div class="hero-banner__buttons">
+          <a href="#products" class="btn btn--primary" style="background:#52b788;border-color:#52b788;color:#081c15;font-weight:900;">
+            Shop Now →
+          </a>
+          <a href="#byob" class="btn btn--secondary" style="color:#fff;border-color:rgba(255,255,255,.5);">
+            Build Your Bundle
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-banner__stats page-width">
+    <div class="hero-stat"><div class="hero-stat__num">50K+</div><div class="hero-stat__label">Happy Families</div></div>
+    <div class="hero-stat"><div class="hero-stat__num">100%</div><div class="hero-stat__label">Organic</div></div>
+    <div class="hero-stat"><div class="hero-stat__num">4.9★</div><div class="hero-stat__label">Rating</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FEATURED COLLECTION
+════════════════════════════════════════════ -->
+<section class="products-section" id="products">
+  <div class="page-width">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Best Sellers</p>
+        <h2 class="section-title">Top Rated Formulas</h2>
+      </div>
+      <a href="#" class="btn btn--secondary">View All Products</a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__media"><div class="product-card__media-inner pc1">🍼</div><span class="product-card__badge">New</span></div>
+        <div class="product-card__info">
+          <p class="product-card__vendor">HiPP Organic</p>
+          <h3 class="product-card__title">Stage 1 — Infant Formula</h3>
+          <div class="product-card__price"><span class="price price--sale">$28.99</span><span class="price price--compare">$34.99</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__media"><div class="product-card__media-inner pc2">🥛</div></div>
+        <div class="product-card__info">
+          <p class="product-card__vendor">HiPP Organic</p>
+          <h3 class="product-card__title">Stage 2 — Follow-On Formula</h3>
+          <div class="product-card__price"><span class="price">$31.99</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__media"><div class="product-card__media-inner pc3">🌿</div><span class="product-card__badge" style="background:#52b788;">Sale</span></div>
+        <div class="product-card__info">
+          <p class="product-card__vendor">Holle</p>
+          <h3 class="product-card__title">Bio Pre — Starter Formula</h3>
+          <div class="product-card__price"><span class="price price--sale">$26.99</span><span class="price price--compare">$32.99</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__media"><div class="product-card__media-inner pc4">⭐</div></div>
+        <div class="product-card__info">
+          <p class="product-card__vendor">Jovie</p>
+          <h3 class="product-card__title">Organic Goat Stage 1</h3>
+          <div class="product-card__price"><span class="price">$33.99</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     BYOB BUNDLE BUILDER
+════════════════════════════════════════════ -->
+<section class="byob-section" id="byob">
+  <div class="page-width">
+    <div class="byob-header">
+      <p class="section-eyebrow">Customize Your Order</p>
+      <h2>Build Your Own Bundle</h2>
+      <p class="byob-subtitle">Choose your favourite formulas and save with every bundle. Select 2–6 products below to add them to your cart.</p>
+    </div>
+
+    <div class="byob-steps">
+      <div class="byob-step active"><div class="byob-step__num">1</div> Choose Products</div>
+      <span class="byob-step-divider">→</span>
+      <div class="byob-step"><div class="byob-step__num">2</div> Review Bundle</div>
+      <span class="byob-step-divider">→</span>
+      <div class="byob-step"><div class="byob-step__num">3</div> Checkout</div>
+    </div>
+
+    <div class="byob-grid" id="byobGrid">
+      <!-- Items built by JS below -->
+    </div>
+    <div class="byob-error-msg" id="byobError"></div>
+  </div>
+
+  <!-- Sticky Footer -->
+  <div class="byob-footer">
+    <div class="page-width">
+      <div class="byob-footer__inner">
+        <div class="byob-summary">
+          <span class="byob-count" id="byobCount">0</span>
+          <span class="byob-label"> / 6 items selected</span>
+        </div>
+        <div class="byob-progress">
+          <div class="byob-progress__label">
+            <span id="byobProgressLabel">Select at least 2 items</span>
+            <span id="byobProgressPct">0%</span>
+          </div>
+          <div class="byob-progress__track">
+            <div class="byob-progress__fill" id="byobBar" style="width:0%"></div>
+          </div>
+        </div>
+        <button class="btn btn--primary" id="byobAddBtn" disabled>
+          Select at least 2 items
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PRODUCT DETAIL PAGE (PDP)
+════════════════════════════════════════════ -->
+<section class="pdp-section" id="pdp">
+  <div class="page-width">
+    <p style="font-size:2rem;font-weight:800;margin-bottom:4rem;padding-bottom:2rem;border-bottom:1px solid rgba(0,0,0,.08);">
+      📄 Product Detail Page (PDP)
+    </p>
+    <div class="pdp-grid">
+      <!-- Gallery -->
+      <div>
+        <div class="pdp-gallery__main">🍼</div>
+        <div class="pdp-gallery__thumbs">
+          <button class="pdp-thumb active">🍼</button>
+          <button class="pdp-thumb">🥛</button>
+          <button class="pdp-thumb">🌿</button>
+        </div>
+      </div>
+      <!-- Info -->
+      <div>
+        <p class="pdp-vendor">HiPP Organic</p>
+        <h1 class="pdp-title">Stage 1 Organic Infant Formula</h1>
+        <div class="pdp-price">
+          <span class="pdp-price__compare">$34.99</span>
+          $28.99
+        </div>
+        <!-- Variants -->
+        <p class="pdp-label">Size</p>
+        <div class="variant-pills">
+          <button class="vpill active" onclick="selectVariant(this)">400g</button>
+          <button class="vpill" onclick="selectVariant(this)">600g</button>
+          <button class="vpill soldout" disabled>800g — Sold Out</button>
+        </div>
+        <!-- Qty -->
+        <p class="pdp-label">Quantity</p>
+        <div class="qty-row">
+          <div class="qty-box">
+            <button onclick="changeQty(-1)">−</button>
+            <input type="number" value="1" min="1" id="pdpQty">
+            <button onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+        <!-- ATC -->
+        <div class="pdp-atc-group">
+          <button class="btn btn--primary btn--full" onclick="pdpAddToCart(this)" style="font-size:1.6rem;padding:1.8rem;">
+            Add to Cart
+          </button>
+          <button class="btn btn--secondary btn--full" style="font-size:1.5rem;">
+            Buy it Now
+          </button>
+        </div>
+        <hr class="pdp-divider">
+        <p class="pdp-desc">
+          HiPP Stage 1 is a premium organic infant formula carefully developed to support your baby's growth and development from birth to 6 months. Made with 100% organically grown skimmed milk and enriched with essential vitamins, minerals, and omega fatty acids.
+        </p>
+        <!-- Meta features -->
+        <div class="pdp-meta">
+          <div class="pdp-meta__item">
+            <span class="pdp-meta__icon">🌿</span>
+            <div class="pdp-meta__text"><strong>Certified Organic</strong><span>EU Organic certification — no pesticides or GMOs</span></div>
+          </div>
+          <div class="pdp-meta__item">
+            <span class="pdp-meta__icon">🚚</span>
+            <div class="pdp-meta__text"><strong>Free Shipping</strong><span>On orders over $50 — delivered in 2–4 business days</span></div>
+          </div>
+          <div class="pdp-meta__item">
+            <span class="pdp-meta__icon">↩️</span>
+            <div class="pdp-meta__text"><strong>Easy Returns</strong><span>30-day hassle-free return policy</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Manu<span>Kind</span></div>
+        <p class="footer-desc">Premium organic baby formulas crafted with the finest ingredients for your little one's first years. Trusted by 50,000+ families worldwide.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul class="footer-links">
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">HiPP Organic</a></li>
+          <li><a href="#">Holle</a></li>
+          <li><a href="#">Jovie</a></li>
+          <li><a href="#">Build a Bundle</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 ManuKind. All rights reserved.</span>
+      <div class="payment-icons">💳 🏦 🅿️ 🍎</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     CART DRAWER
+════════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer__head">
+    <h3>Your Cart <span style="font-weight:400;font-size:1.5rem;color:rgba(0,0,0,.4);">(3)</span></h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <!-- Populated by JS -->
+  </div>
+  <div class="cart-foot">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <strong id="cartTotal">$89.97</strong>
+    </div>
+    <p class="cart-note">Shipping and taxes calculated at checkout</p>
+    <div class="cart-cta-group">
+      <button class="btn btn--primary btn--full" style="font-size:1.6rem;padding:1.8rem;">Checkout</button>
+      <button class="btn btn--secondary btn--full" onclick="closeCart()">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Toast ────────────────────────────────────────
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast${type==='error'?' error':''} show`;
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── Cart Drawer ───────────────────────────────────
+const cartItems = [
+  { id:1, emoji:'🍼', title:'Stage 1 Infant Formula', variant:'400g', qty:2, price:28.99 },
+  { id:2, emoji:'🌿', title:'Bio Pre Starter Formula', variant:'600g', qty:1, price:32.99 },
+];
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const total = cartItems.reduce((s,i) => s + i.price * i.qty, 0);
+  const count = cartItems.reduce((s,i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+  if (!cartItems.length) {
+    body.innerHTML = `<div style="text-align:center;padding:6rem 2rem;color:rgba(0,0,0,.4);">
+      <div style="font-size:6rem;margin-bottom:1.6rem;">🛒</div>
+      <p style="font-size:1.6rem;">Your cart is empty</p>
+      <button class="btn btn--primary" onclick="closeCart()" style="margin-top:1.6rem;">Continue Shopping</button>
+    </div>`;
+  } else {
+    body.innerHTML = cartItems.map(item => `
+      <div class="cart-item">
+        <div class="ci-img" style="background:linear-gradient(135deg,#d8f3dc,#b7e4c7);">${item.emoji}</div>
+        <div class="ci-info">
+          <div class="ci-title">${item.title}</div>
+          <div class="ci-variant">${item.variant}</div>
+          <div class="ci-bottom">
+            <div class="ci-qty">
+              <button onclick="changeCartQty(${item.id},-1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeCartQty(${item.id},1)">+</button>
+            </div>
+            <div class="ci-price">$${(item.price * item.qty).toFixed(2)}</div>
+          </div>
+          <button class="ci-remove" onclick="removeCartItem(${item.id})">Remove</button>
+        </div>
+      </div>`).join('');
+  }
+}
+function changeCartQty(id, delta) {
+  const item = cartItems.find(i => i.id === id);
+  if (!item) return;
+  item.qty = Math.max(0, item.qty + delta);
+  if (item.qty === 0) cartItems.splice(cartItems.indexOf(item), 1);
+  renderCart();
+}
+function removeCartItem(id) {
+  cartItems.splice(cartItems.findIndex(i=>i.id===id), 1);
+  renderCart();
+  showToast('Item removed');
+}
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCart();
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('cartTrigger').addEventListener('click', openCart);
+
+// ── PDP ───────────────────────────────────────────
+function selectVariant(btn) {
+  btn.closest('.variant-pills').querySelectorAll('.vpill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function changeQty(delta) {
+  const inp = document.getElementById('pdpQty');
+  inp.value = Math.max(1, parseInt(inp.value) + delta);
+}
+function pdpAddToCart(btn) {
+  const qty = parseInt(document.getElementById('pdpQty').value);
+  const variant = document.querySelector('.vpill.active')?.textContent.trim() || '400g';
+  const existing = cartItems.find(i => i.title === 'Stage 1 Infant Formula' && i.variant === variant);
+  if (existing) { existing.qty += qty; }
+  else { cartItems.push({ id: Date.now(), emoji:'🍼', title:'Stage 1 Infant Formula', variant, qty, price: 28.99 }); }
+  btn.textContent = '✓ Added!';
+  btn.style.background = '#52b788';
+  setTimeout(() => { btn.textContent = 'Add to Cart'; btn.style.background = ''; }, 1800);
+  showToast(`${qty}x Stage 1 Formula added to cart!`);
+  setTimeout(openCart, 400);
+}
+
+// ── BYOB ──────────────────────────────────────────
+const byobProducts = [
+  { id:'v1', emoji:'🍼', bg:'linear-gradient(135deg,#d8f3dc,#b7e4c7)', title:'Stage 1 Infant Formula', sub:'HiPP Organic · 0–6 months', price:'$28.99' },
+  { id:'v2', emoji:'🥛', bg:'linear-gradient(135deg,#fde8d8,#f9c4a0)', title:'Stage 2 Follow-On Formula', sub:'HiPP Organic · 6–12 months', price:'$31.99' },
+  { id:'v3', emoji:'🌿', bg:'linear-gradient(135deg,#e0d4f7,#c5ade8)', title:'Bio Pre Starter Formula', sub:'Holle · From birth', price:'$26.99' },
+  { id:'v4', emoji:'⭐', bg:'linear-gradient(135deg,#d4e8f7,#a8d0ee)', title:'Organic Goat Stage 1', sub:'Jovie · 0–6 months', price:'$33.99' },
+  { id:'v5', emoji:'🌱', bg:'linear-gradient(135deg,#fdf3d0,#f9e08a)', title:'Bio Stage 3 Toddler Milk', sub:'Holle · 12+ months', price:'$24.99' },
+  { id:'v6', emoji:'💛', bg:'linear-gradient(135deg,#fde8f5,#f5b8e0)', title:'Combiotik Stage 1', sub:'HiPP · 0–6 months', price:'$35.99' },
+];
+const byobSelections = new Map();
+const MIN = 2, MAX = 6;
+
+function buildByobGrid() {
+  const grid = document.getElementById('byobGrid');
+  grid.innerHTML = byobProducts.map(p => `
+    <div class="byob-item" id="byob-${p.id}" onclick="byobToggle('${p.id}')" tabindex="0" role="button" aria-label="Select ${p.title}">
+      <div class="byob-item__check">✓</div>
+      <div class="byob-item__qty">
+        <button onclick="event.stopPropagation();byobQty('${p.id}',-1)">−</button>
+        <span id="byob-qty-${p.id}">1</span>
+        <button onclick="event.stopPropagation();byobQty('${p.id}',1)">+</button>
+      </div>
+      <div class="byob-item__media" style="${p.bg}">${p.emoji}</div>
+      <div class="byob-item__info">
+        <div class="byob-item__title">${p.title}</div>
+        <div class="byob-item__sub">${p.sub}</div>
+        <div class="byob-item__price">${p.price}</div>
+      </div>
+    </div>
+  `).join('');
+  // Keyboard support
+  grid.querySelectorAll('.byob-item').forEach(el => {
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }});
+  });
+}
+
+function byobToggle(id) {
+  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
+  const card = document.getElementById('byob-'+id);
+  if (byobSelections.has(id)) {
+    byobSelections.delete(id);
+    card.classList.remove('selected');
+    card.setAttribute('aria-pressed','false');
+  } else {
+    if (total >= MAX) { byobShowError(`Maximum ${MAX} items allowed in this bundle.`); return; }
+    byobSelections.set(id, 1);
+    card.classList.add('selected');
+    card.setAttribute('aria-pressed','true');
+  }
+  byobHideError();
+  byobUpdateUI();
+}
+
+function byobQty(id, delta) {
+  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
+  const current = byobSelections.get(id) || 0;
+  const next = current + delta;
+  if (delta > 0 && total >= MAX) { byobShowError(`Maximum ${MAX} items allowed.`); return; }
+  if (next <= 0) { byobSelections.delete(id); document.getElementById('byob-'+id).classList.remove('selected'); }
+  else { byobSelections.set(id, next); }
+  document.getElementById(`byob-qty-${id}`).textContent = next > 0 ? next : 1;
+  byobHideError();
+  byobUpdateUI();
+}
+
+function byobUpdateUI() {
+  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
+  document.getElementById('byobCount').textContent = total;
+  const pct = Math.min(100, (total/MAX)*100);
+  document.getElementById('byobBar').style.width = pct+'%';
+  document.getElementById('byobProgressPct').textContent = Math.round(pct)+'%';
+  document.getElementById('byobProgressLabel').textContent = total >= MIN ? `${total} / ${MAX} ready!` : `Select ${MIN - total} more item${MIN-total>1?'s':''}`;
+  const btn = document.getElementById('byobAddBtn');
+  btn.disabled = total < MIN;
+  btn.textContent = total >= MIN ? `Add Bundle to Cart (${total} items)` : `Select at least ${MIN} items`;
+  // Update steps
+  const steps = document.querySelectorAll('.byob-step');
+  steps.forEach(s => s.classList.remove('active'));
+  if (total === 0) steps[0].classList.add('active');
+  else if (total < MIN) steps[0].classList.add('active');
+  else if (total >= MIN && total < MAX) steps[1].classList.add('active');
+  else steps[1].classList.add('active');
+}
+
+function byobShowError(msg) {
+  const el = document.getElementById('byobError');
+  el.textContent = msg; el.classList.add('show');
+  showToast(msg, 'error');
+}
+function byobHideError() { document.getElementById('byobError').classList.remove('show'); }
+
+document.getElementById('byobAddBtn').addEventListener('click', () => {
+  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
+  if (total < MIN) { byobShowError(`Please select at least ${MIN} items.`); return; }
+  byobSelections.forEach((qty, id) => {
+    const p = byobProducts.find(x => x.id === id);
+    if (!p) return;
+    const ex = cartItems.find(i => i.title === p.title);
+    if (ex) ex.qty += qty;
+    else cartItems.push({ id: Date.now()+Math.random(), emoji: p.emoji, title: p.title, variant: 'Bundle', qty, price: parseFloat(p.price.replace('$','')) });
+  });
+  byobSelections.clear();
+  document.querySelectorAll('.byob-item.selected').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
+  byobUpdateUI();
+  showToast(`Bundle added to cart!`);
+  setTimeout(openCart, 400);
+});
+
+buildByobGrid();
+byobUpdateUI();
+renderCart();
+
+// Thumb click on PDP
+document.querySelectorAll('.pdp-thumb').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.pdp-thumb').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector('.pdp-gallery__main').textContent = t.textContent;
+  });
+});
+</script>
+</body>
+</html>

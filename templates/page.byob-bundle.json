@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "byob": {
+      "type": "byob-bundle",
+      "settings": {
+        "eyebrow": "Customize Your Order",
+        "heading": "Build Your Own Bundle",
+        "subtitle": "Choose your favourite formulas and save. Select products below to add them to your bundle.",
+        "min_items": 2,
+        "max_items": 6,
+        "hide_unavailable": false
+      }
+    }
+  },
+  "order": ["byob"]
+}

@@ -1,0 +1,264 @@
+{%- liquid
+  assign bundle_collection = section.settings.bundle_collection
+  assign min_items = section.settings.min_items | default: 1
+  assign max_items = section.settings.max_items | default: 999
+-%}
+
+{{ 'bundle.js' | asset_url | script_tag }}
+
+<section class="byob-section section-padding" id="section-{{ section.id }}">
+  <div class="page-width">
+
+    <!-- Header -->
+    <div class="byob-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p style="font-size:1.3rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(var(--color-base-text),.5);margin-bottom:.8rem;">
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+      <h2>{{ section.settings.heading | default: 'Build Your Own Bundle' }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="byob-header__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- Steps indicator -->
+    <div class="byob-steps" role="list">
+      <div class="byob-step active" role="listitem">
+        <div class="byob-step__num"><span>1</span></div>
+        Choose Products
+      </div>
+      <div class="byob-step" role="listitem">
+        <div class="byob-step__num"><span>2</span></div>
+        Review Bundle
+      </div>
+      <div class="byob-step" role="listitem">
+        <div class="byob-step__num"><span>3</span></div>
+        Checkout
+      </div>
+    </div>
+
+    <!-- Bundle wrapper — JS targets [data-byob-bundle] -->
+    <div
+      data-byob-bundle
+      data-bundle-min="{{ min_items }}"
+      data-bundle-max="{{ max_items }}"
+    >
+
+      <!-- Product grid — JS targets [data-byob-grid] -->
+      <div class="byob-grid" data-byob-grid>
+        {%- if bundle_collection != blank and bundle_collection.products_count > 0 -%}
+          {%- for product in bundle_collection.products -%}
+            {%- assign first_variant = product.first_available_variant | default: product.variants.first -%}
+            {%- unless product.available == false and section.settings.hide_unavailable -%}
+
+            <div
+              class="byob-product-item"
+              data-byob-product
+              data-variant-id="{{ first_variant.id }}"
+              data-product-title="{{ product.title | escape }}"
+              role="button"
+              tabindex="0"
+              aria-pressed="false"
+              aria-label="Select {{ product.title | escape }}"
+            >
+              <!-- Check mark (shown when selected) -->
+              <div class="byob-product-item__check" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+
+              <!-- Qty controls (shown when selected) -->
+              <div class="byob-product-item__qty" aria-label="Quantity for {{ product.title | escape }}">
+                <button data-byob-qty-dec aria-label="Decrease quantity">−</button>
+                <span data-byob-qty-value>1</span>
+                <button data-byob-qty-inc aria-label="Increase quantity">+</button>
+              </div>
+
+              <!-- Product image — NO href link to prevent navigation -->
+              <div class="byob-product-item__media">
+                {%- if product.featured_image != blank -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    srcset="{{ product.featured_image | image_url: width: 200 }} 200w, {{ product.featured_image | image_url: width: 400 }} 400w"
+                    sizes="(max-width: 480px) 50vw, 200px"
+                    alt="{{ product.featured_image.alt | escape | default: product.title }}"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                  >
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+
+              <!-- Info -->
+              <div class="byob-product-item__info">
+                <h3 class="byob-product-item__title">{{ product.title }}</h3>
+
+                {%- comment -%} Show variant title if not default {%- endcomment -%}
+                {%- if first_variant.title != 'Default Title' -%}
+                  <p class="byob-product-item__variant">{{ first_variant.title }}</p>
+                {%- endif -%}
+
+                {%- comment -%} Show metafield if available e.g. short description {%- endcomment -%}
+                {%- if product.metafields.custom.short_description != blank -%}
+                  <p class="byob-product-item__variant" style="font-size:1.2rem;">
+                    {{ product.metafields.custom.short_description.value }}
+                  </p>
+                {%- endif -%}
+
+                <p class="byob-product-item__price">
+                  {%- if first_variant.compare_at_price > first_variant.price -%}
+                    <span class="price--compare">{{ first_variant.compare_at_price | money }}</span>
+                    <span class="price--sale">{{ first_variant.price | money }}</span>
+                  {%- else -%}
+                    <span class="price">{{ first_variant.price | money }}</span>
+                  {%- endif -%}
+                </p>
+
+                {%- unless first_variant.available -%}
+                  <p style="font-size:1.2rem;color:#c0392b;margin-top:.4rem;">Sold out</p>
+                {%- endunless -%}
+              </div>
+            </div>
+
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Editor placeholder cards {%- endcomment -%}
+          {%- for i in (1..6) -%}
+            <div class="byob-product-item" data-byob-product data-variant-id="{{ i }}" role="button" tabindex="0">
+              <div class="byob-product-item__check" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="byob-product-item__qty">
+                <button data-byob-qty-dec>−</button>
+                <span data-byob-qty-value>1</span>
+                <button data-byob-qty-inc>+</button>
+              </div>
+              <div class="byob-product-item__media">{{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}</div>
+              <div class="byob-product-item__info">
+                <h3 class="byob-product-item__title">Sample Product {{ i }}</h3>
+                <p class="byob-product-item__price"><span class="price">$24.99</span></p>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      <!-- Error message -->
+      <div class="byob-error" data-byob-error role="alert" aria-live="polite"></div>
+
+      <!-- Sticky footer -->
+      <div class="byob-footer">
+        <div class="page-width">
+          <div class="byob-footer__inner">
+
+            <div class="byob-summary">
+              <span class="byob-summary__count" data-byob-count>0</span>
+              <span class="byob-summary__label">
+                {%- if max_items < 999 -%}
+                  / {{ max_items }} items
+                {%- else -%}
+                  item{{ 's' }}
+                {%- endif -%}
+                &nbsp;selected
+              </span>
+            </div>
+
+            {%- if max_items < 999 -%}
+              <div class="byob-progress">
+                <div class="byob-progress__bar">
+                  <div class="byob-progress__fill" data-byob-progress-fill></div>
+                </div>
+                <p style="font-size:1.2rem;color:rgba(var(--color-base-text),.5);margin-top:.4rem;text-align:right;" data-byob-progress-label>
+                  0 / {{ max_items }} items selected
+                </p>
+              </div>
+            {%- endif -%}
+
+            <button
+              class="btn btn--primary"
+              data-byob-add-btn
+              disabled
+              aria-label="Add bundle to cart"
+            >
+              Select at least {{ min_items }} item{{ min_items | plural: '', 's' }}
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>{%- comment -%} /data-byob-bundle {%- endcomment -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BYOB Bundle",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Customize Your Order"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build Your Own Bundle"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle / description",
+      "default": "Choose your favourite formulas and save. Select products below to add them to your bundle."
+    },
+    {
+      "type": "collection",
+      "id": "bundle_collection",
+      "label": "Bundle products collection"
+    },
+    {
+      "type": "range",
+      "id": "min_items",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 2,
+      "label": "Minimum items required"
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 6,
+      "label": "Maximum items allowed"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_unavailable",
+      "label": "Hide sold-out products",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYOB Bundle",
+      "settings": {
+        "heading": "Build Your Own Bundle",
+        "eyebrow": "Customize Your Order",
+        "min_items": 2,
+        "max_items": 6
+      }
+    }
+  ]
+}
+{% endschema %}

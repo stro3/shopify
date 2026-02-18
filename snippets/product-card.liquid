@@ -1,0 +1,69 @@
+{%- comment -%}
+  Snippet: product-card.liquid
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign card_product = product
+  assign first_variant = card_product.first_available_variant | default: card_product.variants.first
+  assign on_sale = false
+  if first_variant.compare_at_price > first_variant.price
+    assign on_sale = true
+  endif
+  assign sold_out = true
+  if card_product.available
+    assign sold_out = false
+  endif
+-%}
+
+<div class="product-card" data-product-id="{{ card_product.id }}">
+
+  <!-- Media -->
+  <div class="product-card__media">
+    <a href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}" tabindex="-1">
+      {%- if card_product.featured_image != blank -%}
+        <img
+          src="{{ card_product.featured_image | image_url: width: 500 }}"
+          srcset="
+            {{ card_product.featured_image | image_url: width: 250 }} 250w,
+            {{ card_product.featured_image | image_url: width: 500 }} 500w"
+          sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 25vw"
+          alt="{{ card_product.featured_image.alt | escape | default: card_product.title }}"
+          loading="lazy"
+          width="500" height="500"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+
+    {%- if on_sale and sold_out == false -%}
+      <span class="product-card__badge">Sale</span>
+    {%- elsif sold_out -%}
+      <span class="product-card__badge" style="background:rgba(var(--color-base-text),.4);">Sold Out</span>
+    {%- elsif card_product.tags contains 'new' -%}
+      <span class="product-card__badge" style="background:#27ae60;">New</span>
+    {%- endif -%}
+  </div>
+
+  <!-- Info -->
+  <div class="product-card__info">
+    {%- if card_product.vendor != blank -%}
+      <p class="product-card__vendor">{{ card_product.vendor }}</p>
+    {%- endif -%}
+
+    <h3 class="product-card__title">
+      <a href="{{ card_product.url }}">{{ card_product.title }}</a>
+    </h3>
+
+    <div class="product-card__price">
+      {%- if on_sale -%}
+        <span class="price price--sale">{{ first_variant.price | money }}</span>
+        <span class="price price--compare">{{ first_variant.compare_at_price | money }}</span>
+      {%- else -%}
+        <span class="price">{{ first_variant.price | money }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+</div>

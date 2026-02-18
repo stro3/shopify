@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "Free shipping on orders over $50 — Shop Now"
+      }
+    },
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "eyebrow": "New Collection",
+        "heading": "Feed Your Family Better",
+        "subtext": "Premium organic baby formulas crafted with the finest ingredients for your little one's first years.",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all",
+        "button_label_2": "Build Your Bundle",
+        "button_link_2": "/pages/byob-bundle",
+        "section_height": 65,
+        "text_alignment": "left",
+        "show_overlay": true,
+        "overlay_opacity": 45
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "subtext": "Best Sellers",
+        "heading": "Top Rated Formulas",
+        "products_to_show": 4,
+        "view_all_label": "View All Products"
+      }
+    }
+  },
+  "order": ["announcement-bar", "hero", "featured-collection"]
+}

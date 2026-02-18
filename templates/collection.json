@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "",
+        "products_to_show": 12
+      }
+    }
+  },
+  "order": ["main"]
+}
