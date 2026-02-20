@@ -3,640 +3,618 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ManuKind Demo — Shopify Theme Preview</title>
+<title>ManuKind — Premium Organic Baby Formula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-/* ── Reset & Base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 62.5%; scroll-behavior: smooth; }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.65;
-  color: #1a1a1a;
-  background: #fff;
-  overflow-x: hidden;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:62.5%;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;font-size:1.6rem;line-height:1.65;color:#1c1c1c;background:#fff;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit;transition:all .25s}
+ul{list-style:none}
+button{font-family:'Inter',sans-serif;cursor:pointer}
+:root{
+  --green:#2d6a4f;--green-light:#52b788;--green-pale:#d8f3dc;
+  --cream:#faf8f3;--cream2:#f3efe6;--text:#1c1c1c;--text-muted:#6b7280;
+  --border:#e5e7eb;--radius:8px;--radius-lg:16px;
+  --shadow:0 4px 24px rgba(0,0,0,.08);--shadow-lg:0 12px 48px rgba(0,0,0,.12);
+  --transition:all .25s ease;
 }
-:root {
-  --accent: #2d6a4f;
-  --accent2: #52b788;
-  --text: #1a1a1a;
-  --bg1: #fff;
-  --bg2: #f8f8f6;
-  --radius: 6px;
-  --transition: all 0.25s ease;
-  --page: 132rem;
-  --shadow: 0 4px 24px rgba(0,0,0,0.08);
-}
-a { color: var(--text); text-decoration: none; transition: var(--transition); }
-img { max-width: 100%; height: auto; display: block; }
-h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; }
-h1 { font-size: clamp(3.2rem,5vw,5.6rem); }
-h2 { font-size: clamp(2.4rem,4vw,4rem); }
-h3 { font-size: 2rem; }
-.page-width { max-width: 1320px; margin: 0 auto; padding: 0 2.4rem; }
+.page-width{max-width:1280px;margin:0 auto;padding:0 2.4rem}
+.section{padding:8rem 0}
+.section-label{font-size:1.3rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:1.2rem;display:block}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,4vw,4.8rem);font-weight:800;line-height:1.1;margin-bottom:1.6rem}
+.section-title span{color:var(--green)}
+.section-sub{font-size:1.7rem;color:var(--text-muted);line-height:1.75;max-width:54rem}
 
-/* ── Buttons ── */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: .8rem;
-  padding: 1.4rem 3.2rem; border-radius: var(--radius);
-  font-size: 1.4rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-  cursor: pointer; border: 2px solid transparent; transition: var(--transition);
-  white-space: nowrap; font-family: inherit;
-}
-.btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn--primary:hover { background: transparent; color: var(--accent); }
-.btn--secondary { background: transparent; color: var(--text); border-color: var(--text); }
-.btn--secondary:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn--full { width: 100%; }
-.btn:disabled { opacity: .45; cursor: not-allowed; }
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;padding:1.4rem 2.8rem;border-radius:var(--radius);font-size:1.5rem;font-weight:600;border:2px solid transparent;transition:var(--transition);white-space:nowrap;letter-spacing:.01em}
+.btn--primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn--primary:hover{background:#1b4332;border-color:#1b4332;transform:translateY(-1px);box-shadow:0 6px 20px rgba(45,106,79,.35)}
+.btn--secondary{background:transparent;color:var(--text);border-color:var(--border)}
+.btn--secondary:hover{border-color:var(--green);color:var(--green)}
+.btn--white{background:#fff;color:var(--green);border-color:#fff;font-weight:700}
+.btn--white:hover{background:var(--green-pale)}
+.btn--ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn--ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn--full{width:100%}
+.btn--sm{padding:1rem 2rem;font-size:1.4rem}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn.loading{position:relative;color:transparent!important}
+.btn.loading::after{content:'';position:absolute;width:1.8rem;height:1.8rem;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;top:50%;left:50%;transform:translate(-50%,-50%)}
+.btn.success{background:#16a34a!important;border-color:#16a34a!important}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-/* ── Announcement Bar ── */
-.announcement-bar {
-  background: var(--accent);
-  color: #fff;
-  text-align: center;
-  padding: 1rem 2.4rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: .02em;
-}
+/* Announcement */
+.announcement{background:var(--green);color:#fff;text-align:center;padding:.9rem 2.4rem;font-size:1.3rem;font-weight:500}
+.announcement a{color:var(--green-light);text-decoration:underline}
 
-/* ── Header ── */
-.site-header {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--bg1);
-  border-bottom: 1px solid rgba(0,0,0,.07);
-  box-shadow: 0 2px 12px rgba(0,0,0,.05);
-}
-.site-header__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 7.2rem; gap: 2.4rem;
-}
-.site-header__logo a { font-size: 2.4rem; font-weight: 900; letter-spacing: -.03em; color: var(--text); }
-.site-header__logo span { color: var(--accent); }
-.site-nav { display: flex; align-items: center; gap: 2.8rem; list-style: none; }
-.site-nav a { font-size: 1.5rem; font-weight: 500; color: var(--text); }
-.site-nav a:hover { color: var(--accent); }
-.site-header__icons { display: flex; align-items: center; gap: 1.2rem; }
-.icon-btn {
-  position: relative; background: none; border: none; cursor: pointer;
-  padding: .8rem; display: flex; align-items: center; color: var(--text);
-  border-radius: 50%; transition: var(--transition);
-}
-.icon-btn:hover { background: rgba(0,0,0,.05); }
-.cart-badge {
-  position: absolute; top: 0; right: 0;
-  background: var(--accent2); color: #fff;
-  font-size: 1rem; font-weight: 700;
-  min-width: 1.8rem; height: 1.8rem; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
+/* Header */
+.header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:var(--transition)}
+.header.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.header__inner{display:flex;align-items:center;justify-content:space-between;height:7.2rem;gap:2rem}
+.header__logo{display:flex;align-items:center;gap:1rem;font-size:2.2rem;font-weight:900;letter-spacing:-.03em;flex-shrink:0}
+.header__logo-mark{width:3.6rem;height:3.6rem;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.header__logo span{color:var(--green)}
+.header__nav{display:flex;align-items:center;gap:.4rem}
+.header__nav a{font-size:1.5rem;font-weight:500;color:var(--text-muted);padding:.6rem 1.2rem;border-radius:var(--radius);transition:var(--transition)}
+.header__nav a:hover,.header__nav a.active{color:var(--green);background:var(--green-pale)}
+.header__actions{display:flex;align-items:center;gap:.8rem}
+.search-box{display:flex;align-items:center;background:var(--cream);border-radius:var(--radius);padding:.8rem 1.4rem;gap:.8rem;border:1px solid transparent;transition:var(--transition)}
+.search-box:focus-within{border-color:var(--green)}
+.search-box input{background:none;border:none;outline:none;font-size:1.4rem;font-family:'Inter',sans-serif;width:16rem;color:var(--text)}
+.search-box input::placeholder{color:var(--text-muted)}
+.icon-btn{background:none;border:none;padding:.9rem;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text);transition:var(--transition);position:relative}
+.icon-btn:hover{background:var(--cream);color:var(--green)}
+.cart-badge{position:absolute;top:2px;right:2px;background:var(--green);color:#fff;font-size:1rem;font-weight:800;min-width:1.8rem;height:1.8rem;border-radius:50%;display:none;align-items:center;justify-content:center}
+.cart-badge.show{display:flex}
+.hamburger{display:none;flex-direction:column;gap:.5rem;background:none;border:none;padding:.8rem;cursor:pointer}
+.hamburger span{display:block;width:2.2rem;height:2px;background:var(--text);border-radius:2px;transition:var(--transition)}
+.hamburger.open span:nth-child(1){transform:translateY(.7rem) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-.7rem) rotate(-45deg)}
 
-/* ── Hero Banner ── */
-.hero-banner {
-  position: relative; overflow: hidden;
-  min-height: 65vh; display: flex; align-items: center;
-  background: linear-gradient(135deg, #081c15 0%, #1b4332 50%, #2d6a4f 100%);
-}
-.hero-banner::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  z-index: 0;
-}
-.hero-banner__content { position: relative; z-index: 2; width: 100%; padding: 8rem 0; }
-.hero-banner__eyebrow {
-  font-size: 1.3rem; font-weight: 700; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--accent2); margin-bottom: 1.2rem;
-  display: flex; align-items: center; gap: .8rem;
-}
-.hero-banner__eyebrow::before { content: ''; width: 3rem; height: 2px; background: var(--accent2); }
-.hero-banner__heading { color: #fff; margin-bottom: 1.6rem; font-size: clamp(3.6rem,6vw,6.4rem); }
-.hero-banner__heading span { color: var(--accent2); }
-.hero-banner__subtext { color: rgba(255,255,255,.75); font-size: 1.8rem; line-height: 1.7; margin-bottom: 4rem; max-width: 52rem; }
-.hero-banner__buttons { display: flex; flex-wrap: wrap; gap: 1.6rem; }
-.hero-banner__stats {
-  position: absolute; bottom: 4rem; right: 0;
-  display: flex; gap: 3.2rem;
-  z-index: 2;
-}
-.hero-stat { text-align: center; }
-.hero-stat__num { font-size: 3.2rem; font-weight: 900; color: #fff; line-height: 1; }
-.hero-stat__label { font-size: 1.2rem; color: rgba(255,255,255,.6); margin-top: .4rem; }
+/* Mobile Nav */
+.mobile-overlay{position:fixed;inset:0;z-index:199;background:rgba(0,0,0,0);visibility:hidden;pointer-events:none;transition:background .3s}
+.mobile-overlay.open{background:rgba(0,0,0,.5);visibility:visible;pointer-events:all}
+.mobile-panel{position:absolute;top:0;left:0;bottom:0;width:min(32rem,88vw);background:#fff;transform:translateX(-105%);transition:transform .35s cubic-bezier(.4,0,.2,1);padding:2.4rem;display:flex;flex-direction:column;gap:.4rem;overflow-y:auto}
+.mobile-overlay.open .mobile-panel{transform:translateX(0)}
+.mobile-logo{font-size:2rem;font-weight:900;margin-bottom:2rem;padding-bottom:1.6rem;border-bottom:1px solid var(--border)}
+.mobile-logo span{color:var(--green)}
+.mobile-panel a{font-size:1.6rem;font-weight:500;color:var(--text);padding:1.2rem 1.6rem;border-radius:var(--radius);transition:var(--transition);display:block}
+.mobile-panel a:hover{background:var(--cream);color:var(--green)}
 
-/* ── Section headers ── */
-.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; flex-wrap: wrap; gap: 1.6rem; }
-.section-eyebrow { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); margin-bottom: .8rem; }
-.section-title { margin: 0; }
+/* Hero */
+.hero{position:relative;overflow:hidden;min-height:90vh;display:flex;align-items:center;background:#081c15}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 25%;opacity:.45}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,26,19,.92) 0%,rgba(8,26,19,.55) 55%,rgba(8,26,19,.1) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;width:100%;padding:10rem 0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.8rem;background:rgba(82,183,136,.15);border:1px solid rgba(82,183,136,.3);color:var(--green-light);padding:.6rem 1.4rem;border-radius:2rem;font-size:1.3rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(4.2rem,7vw,7.6rem);font-weight:800;line-height:1.04;color:#fff;margin-bottom:2rem}
+.hero-title em{font-style:normal;color:var(--green-light)}
+.hero-sub{font-size:1.9rem;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:4rem;max-width:52rem}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1.4rem;margin-bottom:6rem}
+.hero-stats{display:flex;gap:4rem;flex-wrap:wrap}
+.stat-num{font-size:3.2rem;font-weight:900;color:#fff;line-height:1}
+.stat-lbl{font-size:1.3rem;color:rgba(255,255,255,.5);margin-top:.3rem}
+.hero-float{position:absolute;right:6%;bottom:8%;z-index:3;background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:2rem 2.4rem;display:flex;align-items:center;gap:1.6rem;max-width:29rem}
+.hero-float img{width:6rem;height:6rem;border-radius:var(--radius);object-fit:cover;flex-shrink:0}
+.hero-float-t p{font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.hero-float-stars{color:#f59e0b;font-size:1.4rem}
+.hero-float-sub{font-size:1.2rem;color:rgba(255,255,255,.6)}
 
-/* ── Product Grid ── */
-.products-section { padding: 8rem 0; background: var(--bg1); }
-.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; }
-.product-card {
-  background: var(--bg1); border-radius: var(--radius);
-  border: 1px solid rgba(0,0,0,.07); overflow: hidden;
-  transition: var(--transition); cursor: pointer;
-}
-.product-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
-.product-card__media {
-  position: relative; aspect-ratio: 1;
-  overflow: hidden;
-}
-.product-card__media-inner {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 6rem;
-  transition: transform .4s ease;
-}
-.product-card:hover .product-card__media-inner { transform: scale(1.06); }
-.product-card__badge {
-  position: absolute; top: 1.2rem; left: 1.2rem;
-  background: var(--accent); color: #fff;
-  font-size: 1.1rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; padding: .3rem .9rem; border-radius: 2px;
-}
-.product-card__info { padding: 1.6rem; }
-.product-card__vendor { font-size: 1.2rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(0,0,0,.4); margin-bottom: .4rem; }
-.product-card__title { font-size: 1.6rem; font-weight: 600; margin-bottom: .8rem; line-height: 1.3; }
-.product-card__price { display: flex; align-items: center; gap: .8rem; }
-.price { font-size: 1.6rem; font-weight: 700; }
-.price--compare { font-size: 1.4rem; font-weight: 400; color: rgba(0,0,0,.35); text-decoration: line-through; }
-.price--sale { color: #b5181f; }
+/* Trust Bar */
+.trust{background:var(--green);padding:2rem 0}
+.trust-inner{display:flex;align-items:center;justify-content:space-around;gap:2rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:1rem;color:rgba(255,255,255,.9)}
+.trust-item-icon{font-size:2.2rem}
+.trust-item-lbl{font-size:1.4rem;font-weight:600;display:block}
+.trust-item-sub{font-size:1.2rem;color:rgba(255,255,255,.55);display:block}
+.trust-sep{width:1px;height:3.2rem;background:rgba(255,255,255,.2)}
 
-/* Product card colors */
-.pc1 { background: linear-gradient(135deg,#d8f3dc,#b7e4c7); }
-.pc2 { background: linear-gradient(135deg,#fde8d8,#f9c4a0); }
-.pc3 { background: linear-gradient(135deg,#e0d4f7,#c5ade8); }
-.pc4 { background: linear-gradient(135deg,#d4e8f7,#a8d0ee); }
+/* Products */
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4.8rem;flex-wrap:wrap;gap:2rem}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4rem}
+.pcard{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;transition:var(--transition);display:flex;flex-direction:column}
+.pcard:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.pcard:hover .pcard-overlay{opacity:1}
+.pcard-media{position:relative;aspect-ratio:1;overflow:hidden;background:var(--cream)}
+.pcard-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pcard:hover .pcard-media img{transform:scale(1.07)}
+.pcard-overlay{position:absolute;inset:0;background:rgba(8,26,19,.42);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition)}
+.pcard-qadd{background:#fff;color:var(--green);border:none;padding:1.2rem 2.4rem;border-radius:var(--radius);font-size:1.4rem;font-weight:700;cursor:pointer;transform:translateY(1rem);transition:var(--transition);font-family:'Inter',sans-serif}
+.pcard:hover .pcard-qadd{transform:translateY(0)}
+.pcard-qadd:hover{background:var(--green);color:#fff}
+.pcard-badge{position:absolute;top:1.2rem;left:1.2rem;background:var(--green);color:#fff;font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .9rem;border-radius:2px;z-index:1}
+.pcard-badge.sale{background:#dc2626}
+.pcard-badge.best{background:#b45309}
+.pcard-wish{position:absolute;top:1.2rem;right:1.2rem;background:#fff;border:none;width:3.4rem;height:3.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:var(--transition);font-size:1.5rem;z-index:1}
+.pcard-wish:hover,.pcard-wish.liked{background:var(--green);color:#fff}
+.pcard-info{padding:2rem;display:flex;flex-direction:column;flex:1}
+.pcard-brand{font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.4rem}
+.pcard-name{font-size:1.6rem;font-weight:600;line-height:1.35;margin-bottom:.6rem}
+.pcard-rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;font-size:1.2rem;color:var(--text-muted)}
+.pcard-stars{color:#f59e0b;font-size:1.3rem}
+.pcard-pricing{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:auto}
+.pcard-price{font-size:1.8rem;font-weight:800}
+.pcard-price.sale{color:#dc2626}
+.pcard-compare{font-size:1.4rem;font-weight:400;color:var(--text-muted);text-decoration:line-through}
+.pcard-save{font-size:1.1rem;font-weight:700;background:#fef2f2;color:#dc2626;padding:.2rem .7rem;border-radius:2rem;margin-left:auto}
+.pcard-atc{margin-top:1.6rem}
 
-/* ── BYOB Section ── */
-.byob-section { background: var(--bg2); padding: 8rem 0 12rem; }
-.byob-header { text-align: center; margin-bottom: 4.8rem; }
-.byob-subtitle { font-size: 1.7rem; color: rgba(0,0,0,.55); max-width: 56rem; margin: 1.2rem auto 0; line-height: 1.7; }
-.byob-steps {
-  display: flex; align-items: center; justify-content: center;
-  gap: .8rem; margin-bottom: 4.8rem; flex-wrap: wrap;
-}
-.byob-step {
-  display: flex; align-items: center; gap: .8rem;
-  padding: .9rem 2rem; border-radius: 3rem;
-  background: rgba(0,0,0,.06); color: rgba(0,0,0,.4);
-  font-size: 1.4rem; font-weight: 600;
-}
-.byob-step.active { background: var(--accent); color: #fff; }
-.byob-step__num {
-  width: 2.4rem; height: 2.4rem; border-radius: 50%;
-  background: rgba(255,255,255,.25);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; font-weight: 800;
-}
-.byob-step-divider { color: rgba(0,0,0,.2); font-size: 1.8rem; }
-.byob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2.4rem; }
-.byob-item {
-  background: var(--bg1); border-radius: var(--radius);
-  border: 2px solid transparent; overflow: hidden;
-  transition: var(--transition); cursor: pointer; position: relative;
-  user-select: none;
-}
-.byob-item:hover { border-color: rgba(45,106,79,.3); box-shadow: var(--shadow); }
-.byob-item.selected { border-color: var(--accent); }
-.byob-item__check {
-  position: absolute; top: 1.2rem; right: 1.2rem;
-  width: 3rem; height: 3rem; border-radius: 50%;
-  background: var(--accent); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(.5); transition: var(--transition); z-index: 2;
-  font-size: 1.4rem; font-weight: 900;
-}
-.byob-item.selected .byob-item__check { opacity: 1; transform: scale(1); }
-.byob-item__qty {
-  position: absolute; bottom: 1.2rem; right: 1.2rem;
-  display: flex; align-items: center; gap: .5rem;
-  background: rgba(255,255,255,.96);
-  border: 1px solid rgba(0,0,0,.12); border-radius: 2rem;
-  padding: .3rem .7rem;
-  opacity: 0; transition: var(--transition); z-index: 3;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
-}
-.byob-item.selected .byob-item__qty { opacity: 1; }
-.byob-item__qty button {
-  background: none; border: none; cursor: pointer;
-  font-size: 1.8rem; color: var(--text); padding: 0 .3rem;
-  line-height: 1; transition: var(--transition);
-}
-.byob-item__qty button:hover { color: var(--accent); }
-.byob-item__qty span { font-size: 1.4rem; font-weight: 700; min-width: 1.6rem; text-align: center; }
-.byob-item__media {
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 6rem; pointer-events: none;
-  overflow: hidden; transition: transform .4s;
-}
-.byob-item:hover .byob-item__media { transform: scale(1.03); }
-.byob-item__info { padding: 1.4rem; }
-.byob-item__title { font-size: 1.5rem; font-weight: 600; margin-bottom: .4rem; line-height: 1.3; }
-.byob-item__price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-.byob-item__sub { font-size: 1.2rem; color: rgba(0,0,0,.45); margin-top: .3rem; }
+/* BYOB */
+.byob-intro{background:var(--cream);padding:10rem 0 0}
+.byob-top{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;margin-bottom:0}
+.byob-img-wrap{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:.9}
+.byob-img-wrap img{width:100%;height:100%;object-fit:cover}
+.byob-float{position:absolute;bottom:2.4rem;left:2.4rem;background:#fff;border-radius:var(--radius-lg);padding:1.6rem 2rem;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:1.2rem}
+.byob-float-icon{width:4.8rem;height:4.8rem;background:var(--green-pale);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2.4rem;flex-shrink:0}
+.byob-float-txt strong{font-size:1.5rem;display:block;margin-bottom:.2rem}
+.byob-float-txt span{font-size:1.3rem;color:var(--text-muted)}
+.byob-steps-list{display:flex;flex-direction:column;gap:1.2rem;margin:3.2rem 0}
+.byob-step-row{display:flex;align-items:center;gap:1.6rem;padding:1.6rem;background:#fff;border-radius:var(--radius);border:1px solid var(--border)}
+.byob-step-num{width:4rem;height:4rem;border-radius:50%;background:var(--green);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.byob-step-txt strong{font-size:1.5rem;font-weight:600;display:block}
+.byob-step-txt span{font-size:1.3rem;color:var(--text-muted)}
+.byob-builder{background:#fff;border-top:1px solid var(--border);padding:6rem 0 0}
+.byob-build-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4rem;flex-wrap:wrap;gap:1.6rem}
+.byob-build-head h3{font-size:2.4rem;font-weight:700}
+.byob-dots{display:flex;gap:.5rem}
+.byob-dot{width:3.2rem;height:.6rem;border-radius:.3rem;background:var(--border);transition:var(--transition)}
+.byob-dot.on{background:var(--green)}
+.byob-count-lbl{font-size:1.4rem;font-weight:600;color:var(--text-muted);margin-left:.8rem}
+.bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-bottom:2rem}
+.bitem{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:2.5px solid var(--border);cursor:pointer;transition:var(--transition);background:#fff}
+.bitem:hover{border-color:rgba(45,106,79,.35);box-shadow:var(--shadow)}
+.bitem.sel{border-color:var(--green);box-shadow:0 0 0 4px rgba(45,106,79,.1)}
+.bitem-check{position:absolute;top:1.4rem;right:1.4rem;width:3.2rem;height:3.2rem;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.4);transition:var(--transition);z-index:3;font-size:1.4rem;font-weight:900;box-shadow:0 2px 10px rgba(45,106,79,.4)}
+.bitem.sel .bitem-check{opacity:1;transform:scale(1)}
+.bitem-img{aspect-ratio:1;overflow:hidden;position:relative}
+.bitem-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;pointer-events:none}
+.bitem:hover .bitem-img img{transform:scale(1.04)}
+.bitem-qty{position:absolute;bottom:1.4rem;right:1.4rem;display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:2rem;padding:.4rem .8rem;opacity:0;transform:translateY(.5rem);transition:var(--transition);z-index:3}
+.bitem.sel .bitem-qty{opacity:1;transform:translateY(0)}
+.bitem-qty button{background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--text);line-height:1;padding:0 .2rem;transition:var(--transition);font-family:'Inter',sans-serif}
+.bitem-qty button:hover{color:var(--green)}
+.bitem-qty span{font-size:1.4rem;font-weight:800;min-width:1.8rem;text-align:center;color:var(--green)}
+.bitem-info{padding:1.6rem}
+.bitem-brand{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.3rem}
+.bitem-name{font-size:1.5rem;font-weight:600;line-height:1.3;margin-bottom:.3rem}
+.bitem-sub{font-size:1.2rem;color:var(--text-muted);margin-bottom:.6rem}
+.bitem-price{font-size:1.5rem;font-weight:800}
+.bundle-error{background:#fef2f2;border-left:4px solid #dc2626;color:#dc2626;padding:1rem 1.6rem;border-radius:0 var(--radius) var(--radius) 0;font-size:1.4rem;display:none;margin-bottom:1.6rem}
+.bundle-error.show{display:block}
+.bundle-sticky{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--border);box-shadow:0 -4px 24px rgba(0,0,0,.07);z-index:50}
+.bundle-sticky-inner{display:flex;align-items:center;gap:2.4rem;padding:2rem 0;flex-wrap:wrap}
+.bs-summary{min-width:16rem}
+.bs-count{font-size:3.2rem;font-weight:900;color:var(--green);line-height:1}
+.bs-lbl{font-size:1.4rem;color:var(--text-muted);margin-top:.2rem}
+.bs-progress{flex:1;min-width:20rem}
+.bs-track{height:.8rem;background:var(--border);border-radius:1rem;overflow:hidden;margin-bottom:.6rem}
+.bs-fill{height:100%;background:var(--green);border-radius:1rem;transition:width .4s ease}
+.bs-txt{font-size:1.3rem;color:var(--text-muted);display:flex;justify-content:space-between}
+.bs-cta{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.bs-note{font-size:1.2rem;color:var(--text-muted)}
 
-.byob-footer {
-  position: sticky; bottom: 0;
-  background: var(--bg1);
-  border-top: 1px solid rgba(0,0,0,.08);
-  padding: 1.8rem 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,.06);
-  z-index: 20;
-}
-.byob-footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.byob-summary span { font-size: 1.5rem; }
-.byob-count { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
-.byob-label { color: rgba(0,0,0,.5); }
-.byob-progress { flex: 1; max-width: 34rem; }
-.byob-progress__label { font-size: 1.2rem; color: rgba(0,0,0,.45); margin-bottom: .5rem; display:flex; justify-content: space-between; }
-.byob-progress__track { height: .8rem; background: rgba(0,0,0,.1); border-radius: 1rem; overflow: hidden; }
-.byob-progress__fill { height: 100%; background: var(--accent); border-radius: 1rem; transition: width .4s ease; }
-.byob-error-msg {
-  background: #fff3f3; border-left: 4px solid #b5181f;
-  color: #b5181f; padding: 1.2rem 1.6rem;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-size: 1.4rem; display: none; margin-top: 1.2rem;
-}
-.byob-error-msg.show { display: block; }
+/* PDP */
+.pdp-section{padding:10rem 0}
+.pdp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start}
+.pdp-main{border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:1;position:relative}
+.pdp-main img{width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+.pdp-zoom{position:absolute;bottom:1.6rem;right:1.6rem;background:rgba(255,255,255,.9);border:none;border-radius:var(--radius);padding:.7rem 1.4rem;font-size:1.3rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem}
+.pdp-thumbs{display:flex;gap:1rem;overflow-x:auto;padding:.4rem 0;margin-top:1.2rem}
+.pdp-thumb{flex-shrink:0;width:8rem;height:8rem;border-radius:var(--radius);overflow:hidden;border:2.5px solid transparent;cursor:pointer;transition:var(--transition)}
+.pdp-thumb:hover,.pdp-thumb.active{border-color:var(--green)}
+.pdp-thumb img{width:100%;height:100%;object-fit:cover}
+.pdp-brand{font-size:1.3rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--green);margin-bottom:.8rem}
+.pdp-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,3vw,4rem);margin-bottom:1.2rem;line-height:1.15}
+.pdp-rating-row{display:flex;align-items:center;gap:.8rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.pdp-stars{color:#f59e0b;font-size:1.5rem}
+.pdp-rcount{font-size:1.4rem;color:var(--text-muted)}
+.pdp-rlink{font-size:1.4rem;color:var(--green);font-weight:600;margin-left:auto}
+.pdp-price-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.4rem;flex-wrap:wrap}
+.pdp-price{font-size:3.2rem;font-weight:900}
+.pdp-compare{font-size:2rem;font-weight:400;color:var(--text-muted);text-decoration:line-through}
+.pdp-save{background:#fef2f2;color:#dc2626;font-size:1.3rem;font-weight:700;padding:.3rem 1rem;border-radius:2rem}
+.opt-label{font-size:1.4rem;font-weight:600;margin-bottom:1rem;display:flex;justify-content:space-between}
+.variant-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2.4rem}
+.vpill{padding:1rem 2rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:1.4rem;font-weight:500;cursor:pointer;transition:var(--transition);background:none;font-family:'Inter',sans-serif;color:var(--text)}
+.vpill:hover{border-color:var(--green);color:var(--green)}
+.vpill.active{background:var(--green);color:#fff;border-color:var(--green)}
+.vpill.sold{opacity:.4;cursor:not-allowed;text-decoration:line-through}
+.qty-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.4rem}
+.qty-box{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.qty-box button{width:4.8rem;height:5.2rem;background:none;border:none;cursor:pointer;font-size:2rem;font-weight:300;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.qty-box button:hover{background:var(--cream);color:var(--green)}
+.qty-box input{width:6rem;height:5.2rem;border:none;border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);text-align:center;font-size:1.6rem;font-weight:700;font-family:'Inter',sans-serif;color:var(--text);outline:none}
+.atc-row{display:flex;gap:1rem;margin-bottom:2.4rem}
+.pdp-feats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.4rem}
+.pdp-feat{display:flex;align-items:center;gap:1rem;padding:1.4rem;background:var(--cream);border-radius:var(--radius)}
+.pdp-feat-icon{font-size:2rem;flex-shrink:0}
+.pdp-feat-txt{font-size:1.3rem;font-weight:500}
+.accordion{border-top:1px solid var(--border)}
+.acc-item{border-bottom:1px solid var(--border)}
+.acc-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.6rem 0;background:none;border:none;cursor:pointer;font-size:1.5rem;font-weight:600;font-family:'Inter',sans-serif;text-align:left;transition:var(--transition)}
+.acc-btn:hover{color:var(--green)}
+.acc-icon{font-size:2rem;transition:transform .3s;color:var(--text-muted)}
+.acc-btn.open .acc-icon{transform:rotate(45deg)}
+.acc-body{font-size:1.5rem;color:var(--text-muted);line-height:1.8;padding-bottom:1.6rem;display:none}
+.acc-body.show{display:block}
 
-/* ── PDP ── */
-.pdp-section { padding: 8rem 0; background: var(--bg1); }
-.pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
-.pdp-gallery__main {
-  aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
-  background: linear-gradient(135deg,#d8f3dc,#b7e4c7);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12rem; margin-bottom: 1.2rem;
-}
-.pdp-gallery__thumbs { display: flex; gap: 1rem; }
-.pdp-thumb {
-  width: 8rem; height: 8rem; border-radius: calc(var(--radius)/2);
-  overflow: hidden; border: 2px solid transparent; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.2rem; transition: var(--transition);
-}
-.pdp-thumb:hover, .pdp-thumb.active { border-color: var(--accent); }
-.pdp-thumb:nth-child(1) { background: linear-gradient(135deg,#d8f3dc,#b7e4c7); }
-.pdp-thumb:nth-child(2) { background: linear-gradient(135deg,#fde8d8,#f9c4a0); }
-.pdp-thumb:nth-child(3) { background: linear-gradient(135deg,#e0d4f7,#c5ade8); }
-.pdp-vendor { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(0,0,0,.4); margin-bottom: .8rem; }
-.pdp-title { font-size: clamp(2.8rem,3vw,4rem); margin-bottom: 1.6rem; }
-.pdp-price { font-size: 2.8rem; font-weight: 800; color: var(--accent); margin-bottom: 3.2rem; }
-.pdp-price__compare { font-size: 1.8rem; font-weight: 400; color: rgba(0,0,0,.35); text-decoration: line-through; margin-right: .8rem; }
-.pdp-label { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem; }
-.variant-pills { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2.4rem; }
-.vpill {
-  padding: .9rem 2rem; border: 1.5px solid rgba(0,0,0,.18);
-  border-radius: var(--radius); font-size: 1.4rem; font-weight: 500;
-  cursor: pointer; transition: var(--transition); background: none; font-family: inherit;
-}
-.vpill:hover { border-color: var(--accent); }
-.vpill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.vpill.soldout { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
-.qty-row { display: flex; align-items: center; gap: 1.6rem; margin-bottom: 2.4rem; }
-.qty-box { display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,.18); border-radius: var(--radius); overflow: hidden; }
-.qty-box button { width: 4.4rem; height: 5.2rem; background: none; border: none; cursor: pointer; font-size: 2rem; transition: var(--transition); }
-.qty-box button:hover { background: rgba(0,0,0,.05); }
-.qty-box input { width: 5.6rem; height: 5.2rem; border: none; border-left: 1.5px solid rgba(0,0,0,.1); border-right: 1.5px solid rgba(0,0,0,.1); text-align: center; font-size: 1.6rem; font-weight: 700; font-family: inherit; }
-.pdp-atc-group { display: flex; flex-direction: column; gap: .8rem; margin-bottom: 3.2rem; }
-.pdp-divider { border: none; border-top: 1px solid rgba(0,0,0,.08); margin: 2.4rem 0; }
-.pdp-desc { font-size: 1.5rem; color: rgba(0,0,0,.65); line-height: 1.8; }
-.pdp-meta { margin-top: 2rem; }
-.pdp-meta__item { display: flex; gap: 1.2rem; padding: 1.6rem 0; border-bottom: 1px solid rgba(0,0,0,.06); }
-.pdp-meta__icon { font-size: 2rem; flex-shrink: 0; }
-.pdp-meta__text strong { font-size: 1.4rem; display: block; }
-.pdp-meta__text span { font-size: 1.3rem; color: rgba(0,0,0,.5); }
+/* Testimonials */
+.testi-section{padding:8rem 0;background:var(--cream)}
+.testi-head{text-align:center;max-width:60rem;margin:0 auto 4.8rem}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem}
+.tcard{background:#fff;border-radius:var(--radius-lg);padding:2.8rem;border:1px solid var(--border);transition:var(--transition)}
+.tcard:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.tcard-top{display:flex;align-items:center;gap:1.4rem;margin-bottom:1.6rem}
+.tcard-av{width:5.6rem;height:5.6rem;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--green-pale)}
+.tcard-av img{width:100%;height:100%;object-fit:cover}
+.tcard-name{font-size:1.5rem;font-weight:700}
+.tcard-sub{font-size:1.3rem;color:var(--text-muted)}
+.tcard-stars{color:#f59e0b;font-size:1.5rem;margin-bottom:1rem}
+.tcard-text{font-size:1.5rem;color:var(--text-muted);line-height:1.75;font-style:italic}
+.tcard-verified{display:inline-flex;align-items:center;gap:.5rem;font-size:1.2rem;color:var(--green);font-weight:600;margin-top:1.4rem}
 
-/* ── Cart Drawer ── */
-.cart-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0);
-  visibility: hidden; pointer-events: none;
-  transition: background .3s;
-}
-.cart-overlay.open { background: rgba(0,0,0,.45); visibility: visible; pointer-events: all; }
-.cart-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0;
-  width: min(42rem, 100vw);
-  background: var(--bg1); z-index: 201;
-  display: flex; flex-direction: column;
-  transform: translateX(105%); transition: transform .35s cubic-bezier(.4,0,.2,1);
-  box-shadow: -4px 0 40px rgba(0,0,0,.12);
-}
-.cart-drawer.open { transform: translateX(0); }
-.cart-drawer__head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 2rem 2.4rem; border-bottom: 1px solid rgba(0,0,0,.07); flex-shrink: 0;
-}
-.cart-drawer__head h3 { font-size: 2rem; margin: 0; }
-.cart-close { background: none; border: none; cursor: pointer; padding: .6rem; border-radius: 50%; transition: var(--transition); font-size: 2rem; line-height: 1; display: flex; }
-.cart-close:hover { background: rgba(0,0,0,.06); }
-.cart-body { flex: 1; overflow-y: auto; padding: 2rem 2.4rem; }
-.cart-item {
-  display: grid; grid-template-columns: 8rem 1fr;
-  gap: 1.4rem; padding: 1.6rem 0;
-  border-bottom: 1px solid rgba(0,0,0,.05);
-}
-.cart-item:last-child { border-bottom: none; }
-.ci-img {
-  width: 8rem; height: 8rem; border-radius: calc(var(--radius)/2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.2rem;
-}
-.ci-info { display: flex; flex-direction: column; gap: .4rem; }
-.ci-title { font-size: 1.4rem; font-weight: 600; line-height: 1.3; }
-.ci-variant { font-size: 1.3rem; color: rgba(0,0,0,.45); }
-.ci-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.ci-qty { display: flex; align-items: center; gap: .6rem; }
-.ci-qty button {
-  width: 2.8rem; height: 2.8rem; border-radius: 50%;
-  border: 1.5px solid rgba(0,0,0,.15); background: none;
-  cursor: pointer; font-size: 1.6rem; display: flex; align-items: center; justify-content: center;
-  transition: var(--transition);
-}
-.ci-qty button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-.ci-qty span { font-size: 1.4rem; font-weight: 700; min-width: 2rem; text-align: center; }
-.ci-price { font-size: 1.5rem; font-weight: 700; }
-.ci-remove { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: rgba(0,0,0,.35); text-decoration: underline; transition: var(--transition); }
-.ci-remove:hover { color: #b5181f; }
-.cart-foot { padding: 2rem 2.4rem; border-top: 1px solid rgba(0,0,0,.07); flex-shrink: 0; background: var(--bg1); }
-.cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.6rem; }
-.cart-subtotal span { font-size: 1.5rem; font-weight: 600; }
-.cart-subtotal strong { font-size: 2.2rem; font-weight: 900; color: var(--accent); }
-.cart-note { font-size: 1.3rem; color: rgba(0,0,0,.45); text-align: center; margin-bottom: 1.2rem; }
-.cart-cta-group { display: flex; flex-direction: column; gap: .8rem; }
+/* Newsletter */
+.newsletter{padding:8rem 0;background:var(--green)}
+.nl-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.nl-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,3.5vw,4.4rem);color:#fff;margin-bottom:1.2rem}
+.nl-sub{font-size:1.6rem;color:rgba(255,255,255,.7);line-height:1.7}
+.nl-form{display:flex;gap:1rem}
+.nl-input{flex:1;padding:1.4rem 1.8rem;border-radius:var(--radius);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.12);color:#fff;font-size:1.5rem;font-family:'Inter',sans-serif;outline:none;transition:var(--transition)}
+.nl-input::placeholder{color:rgba(255,255,255,.5)}
+.nl-input:focus{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.nl-note{font-size:1.3rem;color:rgba(255,255,255,.5);margin-top:1rem}
 
-/* ── Toast ── */
-.toast {
-  position: fixed; bottom: 2.4rem; left: 50%;
-  transform: translateX(-50%) translateY(120%);
-  background: var(--accent); color: #fff;
-  padding: 1.2rem 2.8rem; border-radius: var(--radius);
-  font-size: 1.5rem; font-weight: 600;
-  box-shadow: 0 4px 24px rgba(0,0,0,.18);
-  z-index: 500; transition: transform .35s cubic-bezier(.4,0,.2,1);
-  white-space: nowrap; pointer-events: none;
+/* Cart Drawer */
+.cart-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0);visibility:hidden;pointer-events:none;transition:background .3s}
+.cart-overlay.open{background:rgba(0,0,0,.5);visibility:visible;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(46rem,100vw);background:#fff;z-index:301;display:flex;flex-direction:column;transform:translateX(110%);transition:transform .35s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 48px rgba(0,0,0,.12)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:2rem 2.4rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.cart-head h3{font-size:2.2rem;font-weight:800}
+.cart-cnt{font-size:1.4rem;font-weight:500;color:var(--text-muted);margin-left:.6rem}
+.cart-cls{background:none;border:none;cursor:pointer;padding:.8rem;border-radius:50%;display:flex;font-size:2rem;transition:var(--transition)}
+.cart-cls:hover{background:var(--cream)}
+.cart-body{flex:1;overflow-y:auto;padding:2rem 2.4rem}
+.cart-empty{text-align:center;padding:8rem 2rem;display:flex;flex-direction:column;align-items:center;gap:2rem}
+.cart-empty-icon{font-size:8rem;opacity:.25}
+.cart-empty-txt{font-size:1.6rem;color:var(--text-muted)}
+.citem{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;padding:1.6rem 0;border-bottom:1px solid var(--border)}
+.citem:last-child{border-bottom:none}
+.citem-img{width:9rem;height:9rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.citem-img img{width:100%;height:100%;object-fit:cover}
+.citem-brand{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:.3rem}
+.citem-name{font-size:1.4rem;font-weight:600;line-height:1.3;margin-bottom:.4rem}
+.citem-var{font-size:1.3rem;color:var(--text-muted);margin-bottom:.8rem}
+.citem-row{display:flex;align-items:center;justify-content:space-between}
+.ciqty{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.ciqty button{background:none;border:none;cursor:pointer;width:3.2rem;height:3.2rem;display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:var(--transition)}
+.ciqty button:hover{background:var(--cream);color:var(--green)}
+.ciqty span{font-size:1.4rem;font-weight:700;min-width:2.6rem;text-align:center}
+.citem-price{font-size:1.6rem;font-weight:800}
+.citem-rm{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted);text-decoration:underline;transition:var(--transition);padding:0;font-family:'Inter',sans-serif;margin-top:.6rem;display:block}
+.citem-rm:hover{color:#dc2626}
+.cart-upsell{background:var(--green-pale);border-radius:var(--radius);padding:1.4rem 1.6rem;display:flex;align-items:center;gap:1.2rem;margin-top:1.6rem}
+.cart-upsell-icon{font-size:2.2rem}
+.cart-upsell-msg{font-size:1.3rem;font-weight:600;color:var(--green)}
+.cart-foot{padding:2rem 2.4rem;border-top:1px solid var(--border);flex-shrink:0;background:#fff}
+.cart-sub{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid var(--border)}
+.cart-sub-lbl{font-size:1.5rem;font-weight:600}
+.cart-sub-price{font-size:2.4rem;font-weight:900;color:var(--green)}
+.cart-note{font-size:1.3rem;color:var(--text-muted);text-align:center;margin-bottom:1.4rem}
+.cart-ctas{display:flex;flex-direction:column;gap:.8rem}
+.cart-ctas .btn{font-size:1.6rem;padding:1.7rem}
+
+/* Toast */
+.toast{position:fixed;bottom:2.8rem;left:50%;transform:translateX(-50%) translateY(120%);background:var(--green);color:#fff;padding:1.2rem 2.4rem;border-radius:var(--radius);font-size:1.5rem;font-weight:600;box-shadow:0 4px 24px rgba(0,0,0,.18);z-index:600;transition:transform .35s cubic-bezier(.4,0,.2,1);white-space:nowrap;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.err{background:#dc2626}
+
+/* Footer */
+.footer{background:#081c15;color:rgba(255,255,255,.8);padding:8rem 0 3.2rem}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:6rem;margin-bottom:6rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:1.6rem}
+.footer-logo span{color:var(--green-light)}
+.footer-desc{font-size:1.5rem;line-height:1.75;color:rgba(255,255,255,.55);margin-bottom:2rem}
+.footer-social{display:flex;gap:1rem}
+.footer-social a{width:4rem;height:4rem;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:var(--transition)}
+.footer-social a:hover{background:var(--green);border-color:var(--green)}
+.footer-col h4{font-size:1.3rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#fff;margin-bottom:2rem}
+.footer-links{display:flex;flex-direction:column;gap:.8rem}
+.footer-links a{font-size:1.5rem;color:rgba(255,255,255,.55);transition:var(--transition)}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:2.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.2rem;font-size:1.3rem;color:rgba(255,255,255,.4)}
+
+/* Responsive */
+@media(max-width:1024px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .pdp-grid,.byob-top,.nl-inner{grid-template-columns:1fr;gap:4rem}
+  .byob-img-wrap{max-height:40rem}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:4rem}
+  .testi-grid{grid-template-columns:1fr 1fr}
+  .hero-float{display:none}
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.toast.error { background: #b5181f; }
-
-/* ── Footer ── */
-.site-footer { background: #081c15; color: rgba(255,255,255,.8); padding: 8rem 0 3.2rem; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 6rem; margin-bottom: 6rem; }
-.footer-logo { font-size: 2.8rem; font-weight: 900; color: #fff; margin-bottom: 1.6rem; }
-.footer-logo span { color: var(--accent2); }
-.footer-desc { font-size: 1.5rem; line-height: 1.7; color: rgba(255,255,255,.55); }
-.footer-col h4 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .12em; color: #fff; margin-bottom: 1.6rem; font-weight: 700; }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
-.footer-links a { font-size: 1.5rem; color: rgba(255,255,255,.55); transition: var(--transition); }
-.footer-links a:hover { color: #fff; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 2.4rem; display: flex; justify-content: space-between; align-items: center; font-size: 1.3rem; color: rgba(255,255,255,.4); }
-.payment-icons { display: flex; gap: .8rem; font-size: 2rem; }
-
-/* ── Responsive ── */
-@media (max-width: 1024px) { .product-grid { grid-template-columns: repeat(2,1fr); } .pdp-grid { grid-template-columns: 1fr; gap: 4rem; } .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 768px) { .site-nav { display: none; } .byob-grid { grid-template-columns: repeat(2,1fr); } .byob-footer__inner { flex-direction: column; } .hero-banner__stats { display: none; } h1 { font-size: 3.2rem; } }
-@media (max-width: 480px) { .product-grid { grid-template-columns: repeat(2,1fr); gap: 1.2rem; } .byob-grid { grid-template-columns: repeat(2,1fr); } .footer-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px){
+  html{font-size:58%}
+  .header__nav,.search-box{display:none}
+  .hamburger{display:flex}
+  .trust-sep{display:none}
+  .bundle-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:1fr}
+  .pdp-feats{grid-template-columns:1fr}
+  .bundle-sticky-inner{flex-direction:column;align-items:stretch}
+  .bs-cta{margin-left:0}
+  .hero-stats{gap:2.4rem}
+}
+@media(max-width:480px){
+  .product-grid{gap:1.4rem}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-btns,.nl-form,.atc-row{flex-direction:column}
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     ANNOUNCEMENT BAR
-════════════════════════════════════════════ -->
-<div class="announcement-bar">
-  🌿 Free shipping on all orders over $50 — <strong>Shop Now →</strong>
+<!-- Announcement -->
+<div class="announcement">
+  🌿 Free shipping on all orders over $50 &nbsp;·&nbsp;
+  <a href="#products">Shop the Spring collection →</a>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     HEADER
-════════════════════════════════════════════ -->
-<header class="site-header">
+<!-- Header -->
+<header class="header" id="siteHeader">
   <div class="page-width">
-    <div class="site-header__inner">
-      <div class="site-header__logo">
-        <a href="#">Manu<span style="color:var(--accent)">Kind</span></a>
-      </div>
-      <nav>
-        <ul class="site-nav">
-          <li><a href="#">Shop</a></li>
-          <li><a href="#">Bundles</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <div class="header__logo-mark">🌿</div>
+        Manu<span>Kind</span>
+      </a>
+      <nav class="header__nav">
+        <a href="#" class="active">Home</a>
+        <a href="#products">Shop</a>
+        <a href="#byob">Bundles</a>
+        <a href="#pdp">Products</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#footerSection">About</a>
       </nav>
-      <div class="site-header__icons">
+      <div class="header__actions">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="Search formulas...">
+        </div>
         <button class="icon-btn" aria-label="Account">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </button>
         <button class="icon-btn" id="cartTrigger" aria-label="Open cart">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="cart-badge" id="cartCount">3</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════
-     HERO BANNER
-════════════════════════════════════════════ -->
-<section class="hero-banner">
-  <div class="hero-banner__content">
+<!-- Mobile Nav -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <div class="mobile-panel">
+    <div class="mobile-logo">Manu<span>Kind</span></div>
+    <a href="#" onclick="closeMobile()">Home</a>
+    <a href="#products" onclick="closeMobile()">Shop All</a>
+    <a href="#byob" onclick="closeMobile()">Bundles</a>
+    <a href="#pdp" onclick="closeMobile()">Products</a>
+    <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+    <a href="#footerSection" onclick="closeMobile()">About</a>
+    <div style="margin-top:auto;padding-top:3.2rem;display:flex;flex-direction:column;gap:.8rem">
+      <button class="btn btn--primary btn--full" onclick="openCart();closeMobile()">View Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=1920&q=85&auto=format&fit=crop" alt="Mother and baby" loading="eager" fetchpriority="high">
+  </div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
     <div class="page-width">
-      <div style="max-width:60rem;">
-        <p class="hero-banner__eyebrow">New Collection 2025</p>
-        <h1 class="hero-banner__heading">Feed Your Family <span>Better</span></h1>
-        <p class="hero-banner__subtext">Premium organic baby formulas crafted with the finest ingredients. Trusted by 50,000+ families worldwide.</p>
-        <div class="hero-banner__buttons">
-          <a href="#products" class="btn btn--primary" style="background:#52b788;border-color:#52b788;color:#081c15;font-weight:900;">
-            Shop Now →
-          </a>
-          <a href="#byob" class="btn btn--secondary" style="color:#fff;border-color:rgba(255,255,255,.5);">
-            Build Your Bundle
-          </a>
+      <div style="max-width:62rem">
+        <div class="hero-eyebrow">⭐ Rated #1 Organic Baby Formula</div>
+        <h1 class="hero-title">Feed Your<br>Family <em>Better</em></h1>
+        <p class="hero-sub">Premium European organic formulas trusted by 50,000+ families. From birth through toddlerhood — every stage, every need.</p>
+        <div class="hero-btns">
+          <a href="#products" class="btn btn--primary" style="background:var(--green-light);border-color:var(--green-light);color:#081c15;font-weight:800;font-size:1.6rem;padding:1.7rem 3.4rem">Shop All Formulas</a>
+          <a href="#byob" class="btn btn--ghost" style="font-size:1.6rem;padding:1.7rem 3.4rem">Build Your Bundle</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">50K+</div><div class="stat-lbl">Happy Families</div></div>
+          <div><div class="stat-num">100%</div><div class="stat-lbl">Certified Organic</div></div>
+          <div><div class="stat-num">4.9★</div><div class="stat-lbl">Average Rating</div></div>
+          <div><div class="stat-num">15+</div><div class="stat-lbl">Years Trusted</div></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="hero-banner__stats page-width">
-    <div class="hero-stat"><div class="hero-stat__num">50K+</div><div class="hero-stat__label">Happy Families</div></div>
-    <div class="hero-stat"><div class="hero-stat__num">100%</div><div class="hero-stat__label">Organic</div></div>
-    <div class="hero-stat"><div class="hero-stat__num">4.9★</div><div class="hero-stat__label">Rating</div></div>
+  <div class="hero-float">
+    <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=200&q=80&auto=format&fit=crop" alt="Formula">
+    <div class="hero-float-t">
+      <p>Latest Review</p>
+      <div class="hero-float-stars">★★★★★</div>
+      <div class="hero-float-sub">"My baby loves it! Highly recommend."</div>
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     FEATURED COLLECTION
-════════════════════════════════════════════ -->
-<section class="products-section" id="products">
+<!-- Trust Bar -->
+<div class="trust">
   <div class="page-width">
-    <div class="section-header">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="trust-item-icon">🚚</span><div><span class="trust-item-lbl">Free Shipping</span><span class="trust-item-sub">On orders over $50</span></div></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-item-icon">🌿</span><div><span class="trust-item-lbl">100% Organic</span><span class="trust-item-sub">EU certified</span></div></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-item-icon">↩️</span><div><span class="trust-item-lbl">30-Day Returns</span><span class="trust-item-sub">Hassle-free</span></div></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-item-icon">🔒</span><div><span class="trust-item-lbl">Secure Checkout</span><span class="trust-item-sub">256-bit SSL</span></div></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-item-icon">💬</span><div><span class="trust-item-lbl">24/7 Support</span><span class="trust-item-sub">Real humans</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Products -->
+<section class="section" id="products">
+  <div class="page-width">
+    <div class="products-header">
       <div>
-        <p class="section-eyebrow">Best Sellers</p>
-        <h2 class="section-title">Top Rated Formulas</h2>
+        <span class="section-label">Best Sellers</span>
+        <h2 class="section-title">Top Rated <span>Formulas</span></h2>
       </div>
       <a href="#" class="btn btn--secondary">View All Products</a>
     </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-card__media"><div class="product-card__media-inner pc1">🍼</div><span class="product-card__badge">New</span></div>
-        <div class="product-card__info">
-          <p class="product-card__vendor">HiPP Organic</p>
-          <h3 class="product-card__title">Stage 1 — Infant Formula</h3>
-          <div class="product-card__price"><span class="price price--sale">$28.99</span><span class="price price--compare">$34.99</span></div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__media"><div class="product-card__media-inner pc2">🥛</div></div>
-        <div class="product-card__info">
-          <p class="product-card__vendor">HiPP Organic</p>
-          <h3 class="product-card__title">Stage 2 — Follow-On Formula</h3>
-          <div class="product-card__price"><span class="price">$31.99</span></div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__media"><div class="product-card__media-inner pc3">🌿</div><span class="product-card__badge" style="background:#52b788;">Sale</span></div>
-        <div class="product-card__info">
-          <p class="product-card__vendor">Holle</p>
-          <h3 class="product-card__title">Bio Pre — Starter Formula</h3>
-          <div class="product-card__price"><span class="price price--sale">$26.99</span><span class="price price--compare">$32.99</span></div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__media"><div class="product-card__media-inner pc4">⭐</div></div>
-        <div class="product-card__info">
-          <p class="product-card__vendor">Jovie</p>
-          <h3 class="product-card__title">Organic Goat Stage 1</h3>
-          <div class="product-card__price"><span class="price">$33.99</span></div>
-        </div>
-      </div>
-    </div>
+    <div class="product-grid" id="productGrid"></div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     BYOB BUNDLE BUILDER
-════════════════════════════════════════════ -->
-<section class="byob-section" id="byob">
-  <div class="page-width">
-    <div class="byob-header">
-      <p class="section-eyebrow">Customize Your Order</p>
-      <h2>Build Your Own Bundle</h2>
-      <p class="byob-subtitle">Choose your favourite formulas and save with every bundle. Select 2–6 products below to add them to your cart.</p>
-    </div>
-
-    <div class="byob-steps">
-      <div class="byob-step active"><div class="byob-step__num">1</div> Choose Products</div>
-      <span class="byob-step-divider">→</span>
-      <div class="byob-step"><div class="byob-step__num">2</div> Review Bundle</div>
-      <span class="byob-step-divider">→</span>
-      <div class="byob-step"><div class="byob-step__num">3</div> Checkout</div>
-    </div>
-
-    <div class="byob-grid" id="byobGrid">
-      <!-- Items built by JS below -->
-    </div>
-    <div class="byob-error-msg" id="byobError"></div>
-  </div>
-
-  <!-- Sticky Footer -->
-  <div class="byob-footer">
+<!-- BYOB -->
+<section id="byob">
+  <div class="byob-intro">
     <div class="page-width">
-      <div class="byob-footer__inner">
-        <div class="byob-summary">
-          <span class="byob-count" id="byobCount">0</span>
-          <span class="byob-label"> / 6 items selected</span>
-        </div>
-        <div class="byob-progress">
-          <div class="byob-progress__label">
-            <span id="byobProgressLabel">Select at least 2 items</span>
-            <span id="byobProgressPct">0%</span>
+      <div class="byob-top">
+        <div>
+          <span class="section-label">Customize Your Order</span>
+          <h2 class="section-title">Build Your Own<br><span>Bundle</span></h2>
+          <p class="section-sub">Mix and match your favourite formulas. Choose 2–6 products and save up to 20% on your bundle.</p>
+          <div class="byob-steps-list">
+            <div class="byob-step-row"><div class="byob-step-num">1</div><div class="byob-step-txt"><strong>Choose your products</strong><span>Select 2–6 formulas from our full range</span></div></div>
+            <div class="byob-step-row"><div class="byob-step-num">2</div><div class="byob-step-txt"><strong>Set your quantities</strong><span>Adjust how many of each you need</span></div></div>
+            <div class="byob-step-row"><div class="byob-step-num">3</div><div class="byob-step-txt"><strong>Add to cart &amp; save</strong><span>Bundle discount applied automatically</span></div></div>
           </div>
-          <div class="byob-progress__track">
-            <div class="byob-progress__fill" id="byobBar" style="width:0%"></div>
+          <a href="#byob-builder" class="btn btn--primary" style="font-size:1.6rem;padding:1.6rem 3.2rem">Start Building →</a>
+        </div>
+        <div class="byob-img-wrap">
+          <img src="https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?w=800&q=80&auto=format&fit=crop" alt="Parent and baby">
+          <div class="byob-float">
+            <div class="byob-float-icon">💰</div>
+            <div class="byob-float-txt"><strong>Save up to 20%</strong><span>With every bundle order</span></div>
           </div>
         </div>
-        <button class="btn btn--primary" id="byobAddBtn" disabled>
-          Select at least 2 items
-        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Builder -->
+  <div class="byob-builder" id="byob-builder">
+    <div class="page-width">
+      <div class="byob-build-head">
+        <h3>Select Your Products</h3>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div class="byob-dots" id="byobDots"></div>
+          <span class="byob-count-lbl" id="byobCountLbl">0 / 6 selected</span>
+        </div>
+      </div>
+      <div class="bundle-error" id="bundleErr"></div>
+      <div class="bundle-grid" id="bundleGrid"></div>
+    </div>
+    <div class="bundle-sticky">
+      <div class="page-width">
+        <div class="bundle-sticky-inner">
+          <div class="bs-summary">
+            <div class="bs-count" id="bsCount">0</div>
+            <div class="bs-lbl">of 6 items selected</div>
+          </div>
+          <div class="bs-progress">
+            <div class="bs-track"><div class="bs-fill" id="bsFill" style="width:0%"></div></div>
+            <div class="bs-txt"><span id="bsMsg">Select at least 2 items to unlock your bundle</span><span id="bsPct">0%</span></div>
+          </div>
+          <div class="bs-cta">
+            <button class="btn btn--primary" id="bundleBtn" disabled style="font-size:1.5rem;padding:1.5rem 3rem">Select at least 2 items</button>
+            <span class="bs-note">Bundle discount applied at checkout</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PRODUCT DETAIL PAGE (PDP)
-════════════════════════════════════════════ -->
+<!-- PDP -->
 <section class="pdp-section" id="pdp">
   <div class="page-width">
-    <p style="font-size:2rem;font-weight:800;margin-bottom:4rem;padding-bottom:2rem;border-bottom:1px solid rgba(0,0,0,.08);">
-      📄 Product Detail Page (PDP)
-    </p>
+    <span class="section-label" style="display:block;margin-bottom:1.6rem">Featured Product</span>
     <div class="pdp-grid">
-      <!-- Gallery -->
       <div>
-        <div class="pdp-gallery__main">🍼</div>
-        <div class="pdp-gallery__thumbs">
-          <button class="pdp-thumb active">🍼</button>
-          <button class="pdp-thumb">🥛</button>
-          <button class="pdp-thumb">🌿</button>
+        <div class="pdp-main">
+          <img id="pdpImg" src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=900&q=85&auto=format&fit=crop" alt="HiPP Stage 1 Formula">
+          <button class="pdp-zoom">🔍 Zoom</button>
+        </div>
+        <div class="pdp-thumbs">
+          <button class="pdp-thumb active" data-src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=900&q=85&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=160&q=70&auto=format&fit=crop" alt="View 1"></button>
+          <button class="pdp-thumb" data-src="https://images.unsplash.com/photo-1584900979734-64ed5d2e3b48?w=900&q=85&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1584900979734-64ed5d2e3b48?w=160&q=70&auto=format&fit=crop" alt="View 2"></button>
+          <button class="pdp-thumb" data-src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=900&q=85&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=160&q=70&auto=format&fit=crop" alt="View 3"></button>
+          <button class="pdp-thumb" data-src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=900&q=85&auto=format&fit=crop"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=160&q=70&auto=format&fit=crop" alt="View 4"></button>
         </div>
       </div>
-      <!-- Info -->
       <div>
-        <p class="pdp-vendor">HiPP Organic</p>
+        <div class="pdp-brand">HiPP Organic</div>
         <h1 class="pdp-title">Stage 1 Organic Infant Formula</h1>
-        <div class="pdp-price">
-          <span class="pdp-price__compare">$34.99</span>
-          $28.99
+        <div class="pdp-rating-row">
+          <span class="pdp-stars">★★★★★</span>
+          <span class="pdp-rcount">4.9 · 847 reviews</span>
+          <a href="#" class="pdp-rlink">Read all reviews</a>
         </div>
-        <!-- Variants -->
-        <p class="pdp-label">Size</p>
-        <div class="variant-pills">
-          <button class="vpill active" onclick="selectVariant(this)">400g</button>
-          <button class="vpill" onclick="selectVariant(this)">600g</button>
-          <button class="vpill soldout" disabled>800g — Sold Out</button>
+        <div class="pdp-price-row">
+          <span class="pdp-price" id="pdpPrice">$28.99</span>
+          <span class="pdp-compare">$34.99</span>
+          <span class="pdp-save">Save 17%</span>
         </div>
-        <!-- Qty -->
-        <p class="pdp-label">Quantity</p>
+        <div class="opt-label">Size <span id="sizeLabel">400g</span></div>
+        <div class="variant-row">
+          <button class="vpill active" onclick="pickSize(this,'400g','$28.99')">400g</button>
+          <button class="vpill" onclick="pickSize(this,'600g','$39.99')">600g</button>
+          <button class="vpill sold" disabled>800g — Sold Out</button>
+        </div>
+        <div class="opt-label" style="margin-top:.4rem">Quantity</div>
         <div class="qty-row">
           <div class="qty-box">
-            <button onclick="changeQty(-1)">−</button>
-            <input type="number" value="1" min="1" id="pdpQty">
-            <button onclick="changeQty(1)">+</button>
+            <button onclick="adjQty(-1)">−</button>
+            <input type="number" id="pdpQty" value="1" min="1">
+            <button onclick="adjQty(1)">+</button>
           </div>
+          <span style="font-size:1.4rem;color:#16a34a;font-weight:600">✓ In Stock — Ships in 24h</span>
         </div>
-        <!-- ATC -->
-        <div class="pdp-atc-group">
-          <button class="btn btn--primary btn--full" onclick="pdpAddToCart(this)" style="font-size:1.6rem;padding:1.8rem;">
-            Add to Cart
-          </button>
-          <button class="btn btn--secondary btn--full" style="font-size:1.5rem;">
-            Buy it Now
-          </button>
+        <div class="atc-row">
+          <button class="btn btn--primary" id="pdpATC" onclick="pdpAdd(this)" style="flex:1;font-size:1.6rem;padding:1.7rem">Add to Cart</button>
+          <button class="btn btn--secondary" id="pdpWish" onclick="pdpWishToggle(this)" style="font-size:1.6rem;padding:1.7rem 2.2rem" title="Add to Wishlist">♡</button>
         </div>
-        <hr class="pdp-divider">
-        <p class="pdp-desc">
-          HiPP Stage 1 is a premium organic infant formula carefully developed to support your baby's growth and development from birth to 6 months. Made with 100% organically grown skimmed milk and enriched with essential vitamins, minerals, and omega fatty acids.
-        </p>
-        <!-- Meta features -->
-        <div class="pdp-meta">
-          <div class="pdp-meta__item">
-            <span class="pdp-meta__icon">🌿</span>
-            <div class="pdp-meta__text"><strong>Certified Organic</strong><span>EU Organic certification — no pesticides or GMOs</span></div>
+        <div class="pdp-feats">
+          <div class="pdp-feat"><span class="pdp-feat-icon">🌿</span><span class="pdp-feat-txt">EU Certified Organic</span></div>
+          <div class="pdp-feat"><span class="pdp-feat-icon">🚚</span><span class="pdp-feat-txt">Free shipping over $50</span></div>
+          <div class="pdp-feat"><span class="pdp-feat-icon">↩️</span><span class="pdp-feat-txt">30-day returns</span></div>
+          <div class="pdp-feat"><span class="pdp-feat-icon">🔬</span><span class="pdp-feat-txt">Pediatrician approved</span></div>
+        </div>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">Description <span class="acc-icon">+</span></button>
+            <div class="acc-body">HiPP Stage 1 is a premium organic infant formula developed to support your baby from birth to 6 months. Made with 100% organically grown skimmed milk and enriched with essential vitamins, DHA, and omega fatty acids for healthy brain development.</div>
           </div>
-          <div class="pdp-meta__item">
-            <span class="pdp-meta__icon">🚚</span>
-            <div class="pdp-meta__text"><strong>Free Shipping</strong><span>On orders over $50 — delivered in 2–4 business days</span></div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">Ingredients <span class="acc-icon">+</span></button>
+            <div class="acc-body">Organic skimmed milk, organic lactose, organic vegetable oils (palm, rapeseed, sunflower), organic whey product, organic skimmed milk. Contains DHA, ARA, prebiotics (GOS), and probiotics (Lactobacillus fermentum).</div>
           </div>
-          <div class="pdp-meta__item">
-            <span class="pdp-meta__icon">↩️</span>
-            <div class="pdp-meta__text"><strong>Easy Returns</strong><span>30-day hassle-free return policy</span></div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">How to Prepare <span class="acc-icon">+</span></button>
+            <div class="acc-body">1. Boil fresh water and cool to 40–50°C. 2. Pour into a sterilised bottle. 3. Add levelled scoops. 4. Close and shake well. 5. Cool to feeding temperature and test before feeding.</div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" onclick="toggleAcc(this)">Shipping &amp; Returns <span class="acc-icon">+</span></button>
+            <div class="acc-body">Free standard shipping on orders over $50. Express shipping available at checkout. Returns accepted within 30 days for unopened items. Contact us to initiate a return.</div>
           </div>
         </div>
       </div>
@@ -644,74 +622,103 @@ h3 { font-size: 2rem; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════ -->
-<footer class="site-footer">
+<!-- Testimonials -->
+<section class="testi-section" id="testimonials">
+  <div class="page-width">
+    <div class="testi-head">
+      <span class="section-label">Customer Stories</span>
+      <h2 class="section-title">Loved by <span>50,000+</span> Families</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=112&q=80&auto=format&fit=crop&crop=face" alt="Sarah M."></div><div><div class="tcard-name">Sarah M.</div><div class="tcard-sub">Mother of 2 · New York</div></div></div>
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"Switched at 3 months and my daughter immediately settled. No more gas or fussiness. The HiPP Stage 1 is absolutely worth every penny."</p>
+        <div class="tcard-verified">✓ Verified Purchase</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=112&q=80&auto=format&fit=crop&crop=face" alt="James R."></div><div><div class="tcard-name">James R.</div><div class="tcard-sub">Dad · California</div></div></div>
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"Built a bundle of 4 formulas to find what my son liked best. The BYOB feature is genius. Fast delivery and quality is unmatched."</p>
+        <div class="tcard-verified">✓ Verified Purchase</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=112&q=80&auto=format&fit=crop&crop=face" alt="Emily K."></div><div><div class="tcard-name">Emily K.</div><div class="tcard-sub">Mom of twins · Texas</div></div></div>
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-text">"Having twins means I go through formula fast. The bundle builder saves me so much money. Customer service is amazing!"</p>
+        <div class="tcard-verified">✓ Verified Purchase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <div class="page-width">
+    <div class="nl-inner">
+      <div>
+        <h2 class="nl-title">Get 10% Off<br>Your First Order</h2>
+        <p class="nl-sub">Join 50,000+ parents. Expert feeding advice, new products, and exclusive deals — straight to your inbox.</p>
+      </div>
+      <div>
+        <form id="nlForm" onsubmit="handleNewsletter(event)">
+          <div class="nl-form">
+            <input class="nl-input" type="email" placeholder="Enter your email address" required>
+            <button class="btn btn--white" type="submit" id="nlBtn">Subscribe</button>
+          </div>
+          <p class="nl-note">No spam. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="footerSection">
   <div class="page-width">
     <div class="footer-grid">
       <div>
         <div class="footer-logo">Manu<span>Kind</span></div>
-        <p class="footer-desc">Premium organic baby formulas crafted with the finest ingredients for your little one's first years. Trusted by 50,000+ families worldwide.</p>
+        <p class="footer-desc">Premium organic baby formulas from Europe's most trusted brands. Nourishing little ones since 2009.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="Facebook">👍</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="YouTube">▶️</a>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <ul class="footer-links">
-          <li><a href="#">All Products</a></li>
-          <li><a href="#">HiPP Organic</a></li>
-          <li><a href="#">Holle</a></li>
-          <li><a href="#">Jovie</a></li>
-          <li><a href="#">Build a Bundle</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul class="footer-links">
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Reviews</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#">Careers</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h4>Shop</h4><div class="footer-links"><a href="#">All Products</a><a href="#">HiPP Organic</a><a href="#">Holle</a><a href="#">Jovie</a><a href="#">Build a Bundle</a></div></div>
+      <div class="footer-col"><h4>Help</h4><div class="footer-links"><a href="#">FAQ</a><a href="#">Shipping Policy</a><a href="#">Return Policy</a><a href="#">Track Order</a><a href="#">Contact Us</a></div></div>
+      <div class="footer-col"><h4>Company</h4><div class="footer-links"><a href="#">About Us</a><a href="#">Blog</a><a href="#">Reviews</a><a href="#">Press</a><a href="#">Careers</a></div></div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2025 ManuKind. All rights reserved.</span>
-      <div class="payment-icons">💳 🏦 🅿️ 🍎</div>
+      <span>© 2025 ManuKind. All rights reserved.</span>
+      <span style="font-size:2rem">💳 🏦 🅿️ 🍎</span>
+      <span>Privacy · Terms · Cookies</span>
     </div>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════
-     CART DRAWER
-════════════════════════════════════════════ -->
+<!-- Cart Overlay + Drawer -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-drawer__head">
-    <h3>Your Cart <span style="font-weight:400;font-size:1.5rem;color:rgba(0,0,0,.4);">(3)</span></h3>
-    <button class="cart-close" onclick="closeCart()">✕</button>
+  <div class="cart-head">
+    <h3>Your Cart <span class="cart-cnt" id="cartCnt">(0)</span></h3>
+    <button class="cart-cls" onclick="closeCart()" aria-label="Close">✕</button>
   </div>
-  <div class="cart-body" id="cartBody">
-    <!-- Populated by JS -->
-  </div>
+  <div class="cart-body" id="cartBody"></div>
   <div class="cart-foot">
-    <div class="cart-subtotal">
-      <span>Subtotal</span>
-      <strong id="cartTotal">$89.97</strong>
+    <div class="cart-upsell" id="cartUpsell">
+      <span class="cart-upsell-icon">🎁</span>
+      <div class="cart-upsell-msg" id="upsellMsg">Add $50.00 more for free shipping!</div>
+    </div>
+    <div class="cart-sub">
+      <span class="cart-sub-lbl">Subtotal</span>
+      <span class="cart-sub-price" id="cartTotal">$0.00</span>
     </div>
     <p class="cart-note">Shipping and taxes calculated at checkout</p>
-    <div class="cart-cta-group">
-      <button class="btn btn--primary btn--full" style="font-size:1.6rem;padding:1.8rem;">Checkout</button>
+    <div class="cart-ctas">
+      <button class="btn btn--primary btn--full" id="checkoutBtn" disabled>Proceed to Checkout</button>
       <button class="btn btn--secondary btn--full" onclick="closeCart()">Continue Shopping</button>
     </div>
   </div>
@@ -721,219 +728,300 @@ h3 { font-size: 2rem; }
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Toast ────────────────────────────────────────
-function showToast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast${type==='error'?' error':''} show`;
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 2800);
+/* ─── DATA ──────────────────────────────────── */
+const PRODUCTS = [
+  { id:1, brand:'HiPP Organic', name:'Stage 1 Infant Formula',    sub:'0–6 months',  price:28.99, compare:34.99, img:'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80&auto=format&fit=crop', badge:'New',       rating:4.9, reviews:847  },
+  { id:2, brand:'HiPP Organic', name:'Stage 2 Follow-On',         sub:'6–12 months', price:31.99, compare:null,  img:'https://images.unsplash.com/photo-1584900979734-64ed5d2e3b48?w=600&q=80&auto=format&fit=crop', badge:null,        rating:4.8, reviews:521  },
+  { id:3, brand:'Holle',        name:'Bio Pre Starter Formula',   sub:'From birth',  price:26.99, compare:32.99, img:'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=600&q=80&auto=format&fit=crop', badge:'Sale',       rating:4.7, reviews:392  },
+  { id:4, brand:'Jovie',        name:'Organic Goat Stage 1',      sub:'0–6 months',  price:33.99, compare:null,  img:'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=600&q=80&auto=format&fit=crop', badge:'Bestseller', rating:4.9, reviews:1024 },
+];
+const BUNDLE_PRODUCTS = [
+  { id:11, brand:'HiPP Organic', name:'Stage 1 Infant Formula',    sub:'0–6 months',  price:28.99, img:'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&q=80&auto=format&fit=crop' },
+  { id:12, brand:'HiPP Organic', name:'Stage 2 Follow-On',         sub:'6–12 months', price:31.99, img:'https://images.unsplash.com/photo-1584900979734-64ed5d2e3b48?w=500&q=80&auto=format&fit=crop' },
+  { id:13, brand:'Holle',        name:'Bio Pre Starter Formula',   sub:'From birth',  price:26.99, img:'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=500&q=80&auto=format&fit=crop' },
+  { id:14, brand:'Jovie',        name:'Organic Goat Stage 1',      sub:'0–6 months',  price:33.99, img:'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=500&q=80&auto=format&fit=crop' },
+  { id:15, brand:'Holle',        name:'Bio Stage 3 Toddler',       sub:'12+ months',  price:24.99, img:'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=500&q=80&auto=format&fit=crop' },
+  { id:16, brand:'HiPP Organic', name:'Combiotik Stage 1',         sub:'0–6 months',  price:35.99, img:'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500&q=80&auto=format&fit=crop' },
+];
+const MIN=2, MAX=6;
+let cart=[], bundleSel=new Map(), wishlist=new Set();
+
+/* ─── TOAST ─────────────────────────────────── */
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show'+(type==='err'?' err':'');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ── Cart Drawer ───────────────────────────────────
-const cartItems = [
-  { id:1, emoji:'🍼', title:'Stage 1 Infant Formula', variant:'400g', qty:2, price:28.99 },
-  { id:2, emoji:'🌿', title:'Bio Pre Starter Formula', variant:'600g', qty:1, price:32.99 },
-];
-function renderCart() {
-  const body = document.getElementById('cartBody');
-  const total = cartItems.reduce((s,i) => s + i.price * i.qty, 0);
-  const count = cartItems.reduce((s,i) => s + i.qty, 0);
-  document.getElementById('cartCount').textContent = count;
-  document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
-  if (!cartItems.length) {
-    body.innerHTML = `<div style="text-align:center;padding:6rem 2rem;color:rgba(0,0,0,.4);">
-      <div style="font-size:6rem;margin-bottom:1.6rem;">🛒</div>
-      <p style="font-size:1.6rem;">Your cart is empty</p>
-      <button class="btn btn--primary" onclick="closeCart()" style="margin-top:1.6rem;">Continue Shopping</button>
-    </div>`;
-  } else {
-    body.innerHTML = cartItems.map(item => `
-      <div class="cart-item">
-        <div class="ci-img" style="background:linear-gradient(135deg,#d8f3dc,#b7e4c7);">${item.emoji}</div>
-        <div class="ci-info">
-          <div class="ci-title">${item.title}</div>
-          <div class="ci-variant">${item.variant}</div>
-          <div class="ci-bottom">
-            <div class="ci-qty">
-              <button onclick="changeCartQty(${item.id},-1)">−</button>
-              <span>${item.qty}</span>
-              <button onclick="changeCartQty(${item.id},1)">+</button>
-            </div>
-            <div class="ci-price">$${(item.price * item.qty).toFixed(2)}</div>
+/* ─── CART ──────────────────────────────────── */
+function cartTotal(){ return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+function cartCount(){ return cart.reduce((s,i)=>s+i.qty,0); }
+
+function updateBadge(){
+  const n=cartCount(), b=document.getElementById('cartBadge');
+  b.textContent=n; b.classList.toggle('show', n>0);
+  document.getElementById('cartCnt').textContent='('+n+')';
+}
+
+function addToCart(p, qty=1, variant='Standard'){
+  const ex=cart.find(i=>i.id===p.id&&i.variant===variant);
+  if(ex) ex.qty+=qty;
+  else cart.push({id:p.id,brand:p.brand,name:p.name,variant,img:p.img,price:p.price,qty});
+  updateBadge(); renderCart(); updateUpsell();
+}
+
+function removeCartItem(id,variant){
+  cart=cart.filter(i=>!(i.id===id&&i.variant===variant));
+  renderCart(); updateBadge(); updateUpsell();
+}
+
+function changeQtyCart(id,variant,d){
+  const item=cart.find(i=>i.id===id&&i.variant===variant);
+  if(!item) return;
+  item.qty+=d;
+  if(item.qty<=0) removeCartItem(id,variant);
+  else{ renderCart(); updateBadge(); updateUpsell(); }
+}
+
+function updateUpsell(){
+  const needed=Math.max(0,50-cartTotal());
+  const m=document.getElementById('upsellMsg');
+  if(m) m.textContent = needed<=0 ? '🎉 You have free shipping!' : `Add $${needed.toFixed(2)} more for free shipping!`;
+  if(m) m.style.color = needed<=0 ? '#16a34a' : '';
+}
+
+function renderCart(){
+  const body=document.getElementById('cartBody');
+  const totEl=document.getElementById('cartTotal');
+  const btn=document.getElementById('checkoutBtn');
+  if(!body) return;
+  if(!cart.length){
+    body.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-txt">Your cart is empty</div><button class="btn btn--primary" onclick="closeCart();document.getElementById('products').scrollIntoView({behavior:'smooth'})" style="margin-top:1.6rem">Browse Products</button></div>`;
+    if(totEl) totEl.textContent='$0.00';
+    if(btn) btn.disabled=true;
+    return;
+  }
+  if(btn) btn.disabled=false;
+  body.innerHTML=cart.map(item=>`
+    <div class="citem">
+      <div class="citem-img"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>
+      <div>
+        <div class="citem-brand">${item.brand}</div>
+        <div class="citem-name">${item.name}</div>
+        <div class="citem-var">${item.variant}</div>
+        <div class="citem-row">
+          <div class="ciqty">
+            <button onclick="changeQtyCart(${item.id},'${item.variant}',-1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQtyCart(${item.id},'${item.variant}',1)">+</button>
           </div>
-          <button class="ci-remove" onclick="removeCartItem(${item.id})">Remove</button>
+          <div class="citem-price">$${(item.price*item.qty).toFixed(2)}</div>
         </div>
-      </div>`).join('');
-  }
+        <button class="citem-rm" onclick="removeCartItem(${item.id},'${item.variant}')">Remove</button>
+      </div>
+    </div>`).join('');
+  if(totEl) totEl.textContent='$'+cartTotal().toFixed(2);
 }
-function changeCartQty(id, delta) {
-  const item = cartItems.find(i => i.id === id);
-  if (!item) return;
-  item.qty = Math.max(0, item.qty + delta);
-  if (item.qty === 0) cartItems.splice(cartItems.indexOf(item), 1);
-  renderCart();
-}
-function removeCartItem(id) {
-  cartItems.splice(cartItems.findIndex(i=>i.id===id), 1);
-  renderCart();
-  showToast('Item removed');
-}
-function openCart() {
-  document.getElementById('cartDrawer').classList.add('open');
-  document.getElementById('cartOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderCart();
-}
-function closeCart() {
-  document.getElementById('cartDrawer').classList.remove('open');
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+
+function openCart(){ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow='hidden'; renderCart(); }
+function closeCart(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow=''; }
 document.getElementById('cartTrigger').addEventListener('click', openCart);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCart(); });
 
-// ── PDP ───────────────────────────────────────────
-function selectVariant(btn) {
-  btn.closest('.variant-pills').querySelectorAll('.vpill').forEach(b => b.classList.remove('active'));
+/* ─── PRODUCT GRID ──────────────────────────── */
+function renderProducts(){
+  document.getElementById('productGrid').innerHTML=PRODUCTS.map(p=>{
+    const onSale=p.compare&&p.compare>p.price;
+    const save=onSale?Math.round((1-p.price/p.compare)*100):0;
+    const badgeCls=p.badge==='Sale'?'sale':p.badge==='Bestseller'?'best':'';
+    return `
+    <div class="pcard">
+      <div class="pcard-media">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <div class="pcard-overlay"><button class="pcard-qadd" onclick="quickAdd(${p.id},null)">Quick Add to Cart</button></div>
+        ${p.badge?`<span class="pcard-badge ${badgeCls}">${p.badge}</span>`:''}
+        <button class="pcard-wish ${wishlist.has(p.id)?'liked':''}" onclick="toggleWish(event,${p.id})" aria-label="Wishlist">${wishlist.has(p.id)?'❤️':'♡'}</button>
+      </div>
+      <div class="pcard-info">
+        <div class="pcard-brand">${p.brand}</div>
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-rating"><span class="pcard-stars">★★★★★</span>&nbsp;${p.rating} (${p.reviews.toLocaleString()})</div>
+        <div class="pcard-pricing">
+          <span class="pcard-price${onSale?' sale':''}">$${p.price.toFixed(2)}</span>
+          ${onSale?`<span class="pcard-compare">$${p.compare.toFixed(2)}</span><span class="pcard-save">-${save}%</span>`:''}
+        </div>
+        <div class="pcard-atc">
+          <button class="btn btn--primary btn--full btn--sm" onclick="quickAdd(${p.id},this)">Add to Cart</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function quickAdd(id, btn){
+  const p=PRODUCTS.find(x=>x.id===id); if(!p) return;
+  if(btn){ btn.classList.add('loading'); btn.disabled=true; }
+  setTimeout(()=>{
+    addToCart(p);
+    toast(`${p.name} added to cart ✓`);
+    if(btn){ btn.classList.remove('loading'); btn.classList.add('success'); btn.textContent='✓ Added!'; setTimeout(()=>{ btn.classList.remove('success'); btn.textContent='Add to Cart'; btn.disabled=false; },2000); }
+    setTimeout(openCart,300);
+  },600);
+}
+
+function toggleWish(e,id){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  if(wishlist.has(id)){ wishlist.delete(id); btn.classList.remove('liked'); btn.innerHTML='♡'; toast('Removed from wishlist','err'); }
+  else{ wishlist.add(id); btn.classList.add('liked'); btn.innerHTML='❤️'; toast('Added to wishlist ♡'); }
+}
+
+/* ─── PDP ───────────────────────────────────── */
+function pickSize(btn,size,price){
+  document.querySelectorAll('.variant-row .vpill').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  document.getElementById('sizeLabel').textContent=size;
+  document.getElementById('pdpPrice').textContent=price;
 }
-function changeQty(delta) {
-  const inp = document.getElementById('pdpQty');
-  inp.value = Math.max(1, parseInt(inp.value) + delta);
+function adjQty(d){ const i=document.getElementById('pdpQty'); i.value=Math.max(1,parseInt(i.value||1)+d); }
+function pdpAdd(btn){
+  const size=document.getElementById('sizeLabel').textContent;
+  const qty=parseInt(document.getElementById('pdpQty').value)||1;
+  const price=parseFloat(document.getElementById('pdpPrice').textContent.replace('$',''));
+  btn.classList.add('loading'); btn.disabled=true;
+  setTimeout(()=>{
+    addToCart({id:1,brand:'HiPP Organic',name:'Stage 1 Infant Formula',img:document.getElementById('pdpImg').src,price},qty,size);
+    toast(`${qty}× Stage 1 Formula added to cart ✓`);
+    btn.classList.remove('loading'); btn.classList.add('success'); btn.textContent='✓ Added to Cart!';
+    setTimeout(()=>{ btn.classList.remove('success'); btn.textContent='Add to Cart'; btn.disabled=false; },2500);
+    setTimeout(openCart,400);
+  },700);
 }
-function pdpAddToCart(btn) {
-  const qty = parseInt(document.getElementById('pdpQty').value);
-  const variant = document.querySelector('.vpill.active')?.textContent.trim() || '400g';
-  const existing = cartItems.find(i => i.title === 'Stage 1 Infant Formula' && i.variant === variant);
-  if (existing) { existing.qty += qty; }
-  else { cartItems.push({ id: Date.now(), emoji:'🍼', title:'Stage 1 Infant Formula', variant, qty, price: 28.99 }); }
-  btn.textContent = '✓ Added!';
-  btn.style.background = '#52b788';
-  setTimeout(() => { btn.textContent = 'Add to Cart'; btn.style.background = ''; }, 1800);
-  showToast(`${qty}x Stage 1 Formula added to cart!`);
-  setTimeout(openCart, 400);
+function pdpWishToggle(btn){
+  const liked=btn.classList.toggle('liked');
+  btn.textContent=liked?'❤️':'♡';
+  toast(liked?'Added to wishlist ♡':'Removed from wishlist','err');
 }
-
-// ── BYOB ──────────────────────────────────────────
-const byobProducts = [
-  { id:'v1', emoji:'🍼', bg:'linear-gradient(135deg,#d8f3dc,#b7e4c7)', title:'Stage 1 Infant Formula', sub:'HiPP Organic · 0–6 months', price:'$28.99' },
-  { id:'v2', emoji:'🥛', bg:'linear-gradient(135deg,#fde8d8,#f9c4a0)', title:'Stage 2 Follow-On Formula', sub:'HiPP Organic · 6–12 months', price:'$31.99' },
-  { id:'v3', emoji:'🌿', bg:'linear-gradient(135deg,#e0d4f7,#c5ade8)', title:'Bio Pre Starter Formula', sub:'Holle · From birth', price:'$26.99' },
-  { id:'v4', emoji:'⭐', bg:'linear-gradient(135deg,#d4e8f7,#a8d0ee)', title:'Organic Goat Stage 1', sub:'Jovie · 0–6 months', price:'$33.99' },
-  { id:'v5', emoji:'🌱', bg:'linear-gradient(135deg,#fdf3d0,#f9e08a)', title:'Bio Stage 3 Toddler Milk', sub:'Holle · 12+ months', price:'$24.99' },
-  { id:'v6', emoji:'💛', bg:'linear-gradient(135deg,#fde8f5,#f5b8e0)', title:'Combiotik Stage 1', sub:'HiPP · 0–6 months', price:'$35.99' },
-];
-const byobSelections = new Map();
-const MIN = 2, MAX = 6;
-
-function buildByobGrid() {
-  const grid = document.getElementById('byobGrid');
-  grid.innerHTML = byobProducts.map(p => `
-    <div class="byob-item" id="byob-${p.id}" onclick="byobToggle('${p.id}')" tabindex="0" role="button" aria-label="Select ${p.title}">
-      <div class="byob-item__check">✓</div>
-      <div class="byob-item__qty">
-        <button onclick="event.stopPropagation();byobQty('${p.id}',-1)">−</button>
-        <span id="byob-qty-${p.id}">1</span>
-        <button onclick="event.stopPropagation();byobQty('${p.id}',1)">+</button>
-      </div>
-      <div class="byob-item__media" style="${p.bg}">${p.emoji}</div>
-      <div class="byob-item__info">
-        <div class="byob-item__title">${p.title}</div>
-        <div class="byob-item__sub">${p.sub}</div>
-        <div class="byob-item__price">${p.price}</div>
-      </div>
-    </div>
-  `).join('');
-  // Keyboard support
-  grid.querySelectorAll('.byob-item').forEach(el => {
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }});
+document.querySelectorAll('.pdp-thumb').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.pdp-thumb').forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    const img=document.getElementById('pdpImg'); img.style.opacity='0';
+    setTimeout(()=>{ img.src=t.dataset.src; img.style.opacity='1'; img.style.transition='opacity .2s'; },200);
   });
+});
+function toggleAcc(btn){
+  const body=btn.nextElementSibling, open=body.classList.contains('show');
+  document.querySelectorAll('.acc-body.show').forEach(el=>{ el.classList.remove('show'); el.previousElementSibling.classList.remove('open'); });
+  if(!open){ body.classList.add('show'); btn.classList.add('open'); }
 }
 
-function byobToggle(id) {
-  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
-  const card = document.getElementById('byob-'+id);
-  if (byobSelections.has(id)) {
-    byobSelections.delete(id);
-    card.classList.remove('selected');
-    card.setAttribute('aria-pressed','false');
-  } else {
-    if (total >= MAX) { byobShowError(`Maximum ${MAX} items allowed in this bundle.`); return; }
-    byobSelections.set(id, 1);
-    card.classList.add('selected');
-    card.setAttribute('aria-pressed','true');
+/* ─── BUNDLE ────────────────────────────────── */
+function renderBundleGrid(){
+  document.getElementById('bundleGrid').innerHTML=BUNDLE_PRODUCTS.map(p=>`
+    <div class="bitem" id="bi${p.id}" onclick="bToggle(${p.id})" tabindex="0" role="button" aria-pressed="false">
+      <div class="bitem-check">✓</div>
+      <div class="bitem-img"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+      <div class="bitem-qty">
+        <button onclick="event.stopPropagation();bQty(${p.id},-1)">−</button>
+        <span id="bq${p.id}">1</span>
+        <button onclick="event.stopPropagation();bQty(${p.id},1)">+</button>
+      </div>
+      <div class="bitem-info">
+        <div class="bitem-brand">${p.brand}</div>
+        <div class="bitem-name">${p.name}</div>
+        <div class="bitem-sub">${p.sub}</div>
+        <div class="bitem-price">$${p.price.toFixed(2)}</div>
+      </div>
+    </div>`).join('');
+  document.querySelectorAll('.bitem').forEach(el=>el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); } }));
+  renderDots();
+}
+
+function renderDots(){
+  document.getElementById('byobDots').innerHTML=Array.from({length:MAX},(_,i)=>`<div class="byob-dot" id="dot${i}"></div>`).join('');
+}
+
+function bTotal(){ return [...bundleSel.values()].reduce((s,q)=>s+q,0); }
+
+function bToggle(id){
+  const card=document.getElementById('bi'+id);
+  if(bundleSel.has(id)){ bundleSel.delete(id); card.classList.remove('sel'); card.setAttribute('aria-pressed','false'); }
+  else{
+    if(bTotal()>=MAX){ bErr(`Maximum ${MAX} items allowed.`); return; }
+    bundleSel.set(id,1); card.classList.add('sel'); card.setAttribute('aria-pressed','true');
   }
-  byobHideError();
-  byobUpdateUI();
+  bErrHide(); bUI();
 }
 
-function byobQty(id, delta) {
-  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
-  const current = byobSelections.get(id) || 0;
-  const next = current + delta;
-  if (delta > 0 && total >= MAX) { byobShowError(`Maximum ${MAX} items allowed.`); return; }
-  if (next <= 0) { byobSelections.delete(id); document.getElementById('byob-'+id).classList.remove('selected'); }
-  else { byobSelections.set(id, next); }
-  document.getElementById(`byob-qty-${id}`).textContent = next > 0 ? next : 1;
-  byobHideError();
-  byobUpdateUI();
+function bQty(id,d){
+  const curr=bundleSel.get(id)||0, next=curr+d;
+  if(d>0&&bTotal()>=MAX){ bErr(`Maximum ${MAX} items allowed.`); return; }
+  if(next<=0){ bundleSel.delete(id); document.getElementById('bi'+id).classList.remove('sel'); }
+  else bundleSel.set(id,next);
+  document.getElementById('bq'+id).textContent=next>0?next:1;
+  bErrHide(); bUI();
 }
 
-function byobUpdateUI() {
-  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
-  document.getElementById('byobCount').textContent = total;
-  const pct = Math.min(100, (total/MAX)*100);
-  document.getElementById('byobBar').style.width = pct+'%';
-  document.getElementById('byobProgressPct').textContent = Math.round(pct)+'%';
-  document.getElementById('byobProgressLabel').textContent = total >= MIN ? `${total} / ${MAX} ready!` : `Select ${MIN - total} more item${MIN-total>1?'s':''}`;
-  const btn = document.getElementById('byobAddBtn');
-  btn.disabled = total < MIN;
-  btn.textContent = total >= MIN ? `Add Bundle to Cart (${total} items)` : `Select at least ${MIN} items`;
-  // Update steps
-  const steps = document.querySelectorAll('.byob-step');
-  steps.forEach(s => s.classList.remove('active'));
-  if (total === 0) steps[0].classList.add('active');
-  else if (total < MIN) steps[0].classList.add('active');
-  else if (total >= MIN && total < MAX) steps[1].classList.add('active');
-  else steps[1].classList.add('active');
+function bUI(){
+  const total=bTotal(), pct=Math.min(100,(total/MAX)*100);
+  document.getElementById('bsCount').textContent=total;
+  document.getElementById('byobCountLbl').textContent=total+' / '+MAX+' selected';
+  document.getElementById('bsFill').style.width=pct+'%';
+  document.getElementById('bsPct').textContent=Math.round(pct)+'%';
+  for(let i=0;i<MAX;i++){ const d=document.getElementById('dot'+i); if(d) d.classList.toggle('on',i<total); }
+  document.getElementById('bsMsg').textContent=total>=MIN?'🎉 Ready! Add your bundle to cart':`Select ${MIN-total} more item${MIN-total!==1?'s':''}`;
+  const btn=document.getElementById('bundleBtn');
+  btn.disabled=total<MIN;
+  btn.textContent=total>=MIN?`Add Bundle to Cart (${total} items)`:`Select at least ${MIN} items`;
 }
 
-function byobShowError(msg) {
-  const el = document.getElementById('byobError');
-  el.textContent = msg; el.classList.add('show');
-  showToast(msg, 'error');
-}
-function byobHideError() { document.getElementById('byobError').classList.remove('show'); }
+function bErr(msg){ const e=document.getElementById('bundleErr'); e.textContent=msg; e.classList.add('show'); toast(msg,'err'); }
+function bErrHide(){ document.getElementById('bundleErr').classList.remove('show'); }
 
-document.getElementById('byobAddBtn').addEventListener('click', () => {
-  const total = [...byobSelections.values()].reduce((s,q) => s+q, 0);
-  if (total < MIN) { byobShowError(`Please select at least ${MIN} items.`); return; }
-  byobSelections.forEach((qty, id) => {
-    const p = byobProducts.find(x => x.id === id);
-    if (!p) return;
-    const ex = cartItems.find(i => i.title === p.title);
-    if (ex) ex.qty += qty;
-    else cartItems.push({ id: Date.now()+Math.random(), emoji: p.emoji, title: p.title, variant: 'Bundle', qty, price: parseFloat(p.price.replace('$','')) });
-  });
-  byobSelections.clear();
-  document.querySelectorAll('.byob-item.selected').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
-  byobUpdateUI();
-  showToast(`Bundle added to cart!`);
-  setTimeout(openCart, 400);
+document.getElementById('bundleBtn').addEventListener('click',()=>{
+  if(bTotal()<MIN){ bErr('Select at least '+MIN+' items.'); return; }
+  const btn=document.getElementById('bundleBtn');
+  btn.classList.add('loading'); btn.disabled=true;
+  setTimeout(()=>{
+    bundleSel.forEach((qty,id)=>{ const p=BUNDLE_PRODUCTS.find(x=>x.id===id); if(p) addToCart(p,qty,'Bundle'); });
+    toast(`Bundle of ${bTotal()} items added to cart! 🎁`);
+    bundleSel.clear();
+    document.querySelectorAll('.bitem.sel').forEach(c=>{ c.classList.remove('sel'); c.setAttribute('aria-pressed','false'); });
+    bUI(); btn.classList.remove('loading'); btn.disabled=false;
+    setTimeout(openCart,400);
+  },800);
 });
 
-buildByobGrid();
-byobUpdateUI();
-renderCart();
+/* ─── NEWSLETTER ────────────────────────────── */
+function handleNewsletter(e){
+  e.preventDefault();
+  const btn=document.getElementById('nlBtn'), inp=e.target.querySelector('input');
+  btn.classList.add('loading'); btn.disabled=true;
+  setTimeout(()=>{
+    btn.classList.remove('loading'); btn.textContent='✓ Subscribed!'; btn.style.background='#16a34a'; btn.style.color='#fff'; inp.value='';
+    toast('Welcome! Your 10% discount is on its way 🎉');
+    setTimeout(()=>{ btn.textContent='Subscribe'; btn.style.background=''; btn.style.color=''; btn.disabled=false; },4000);
+  },1000);
+}
 
-// Thumb click on PDP
-document.querySelectorAll('.pdp-thumb').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.pdp-thumb').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    document.querySelector('.pdp-gallery__main').textContent = t.textContent;
-  });
+/* ─── MOBILE NAV ────────────────────────────── */
+document.getElementById('hamburgerBtn').addEventListener('click',()=>{
+  const open=document.getElementById('mobileOverlay').classList.toggle('open');
+  document.getElementById('hamburgerBtn').classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
 });
+document.getElementById('mobileOverlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeMobile(); });
+function closeMobile(){ document.getElementById('mobileOverlay').classList.remove('open'); document.getElementById('hamburgerBtn').classList.remove('open'); document.body.style.overflow=''; }
+
+/* ─── SCROLL ────────────────────────────────── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* ─── INIT ──────────────────────────────────── */
+renderProducts();
+renderBundleGrid();
+bUI(); updateBadge(); updateUpsell(); renderCart();
 </script>
 </body>
 </html>
